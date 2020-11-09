@@ -125,3 +125,4 @@ ax.annotate('U',(dato['U']*0.5, 0))
 ax.annotate('C2',(0, 0.2))
 ax.annotate('W2',(dato['U']/2,1.2))
 plt.show()
+ #ciao
