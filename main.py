@@ -41,7 +41,7 @@ Di = (0.25 + (0.0951/K)) * De                             #diametro hub [m]
 
 Dgv = 1.24 * De                                           #diametro distributore [m]
 A = 0.13 * De                                             #altezza [m]
-Cr1 = Q/(math.pi * Dgv * A)                                #componenete radiale in uscita dal GV
+Cr1 = Q/(math.pi * Dgv * A)                               #componenete radiale in uscita dal GV
 
 Zgv = 16
 tgv = (math.pi * Dgv) / Zgv                               #passo
@@ -63,10 +63,11 @@ step=200
 r = np.linspace(Di,De,step)
 #inizializzazione vettori velocità
 U = np.zeros(len(r))
-Cm = 0.0
+Cm = np.zeros(len(r))
 Cu1 = np.zeros(len(r))
 Cu2 = np.zeros(len(r))
 Wu1 = np.zeros(len(r))
+Wu2 = np.zeros(len(r))
 
 U = omega * r                             #blade speed
 phi = Q/(omega * (2 * r)**3)              #flow coefficient
