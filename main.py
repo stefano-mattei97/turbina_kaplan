@@ -5,9 +5,9 @@ import pandas as pd
 
 #INPUT
 
-Q = 95                               #[m^3/s]
-H = 5.6
-Np = 24
+Q = 20                           #[m^3/s]
+H = 17
+Np = 10
 efficiency = 0.85
 
 #COSTANTI
@@ -28,6 +28,7 @@ Ns = (N * (P/rho)**0.5)/((g * H)**1.25)    #numero di giri specifico adimensiona
 Nsd = (N * (P/1000)**0.5)/(H**1.25)        #numero di giri dimensionale
 omegas = omega*(Q**0.5)/((g*H)**(3/4))     #velocità specifica
 Z = 5                                      #pale runner
+
 
 
 #CANALE MERIDIANO
