@@ -7,19 +7,19 @@ def Girante(g,H,omega,Q,k1,k2,Di,De):
     step = 11
     mid = 6
     r = np.linspace(Di, De, step, endpoint=True)
-    U = omega * r     # blade speed
+    U = omega * r                                       # blade speed
     phi = Q / (omega * (2 * r) ** 3)                    # flow coefficient
 
     # Free vortex: Cm costante
 
-    Cm = phi[mid] * U[mid]                              # componente assiale velocitÃ  assoluta (midspan)
+    Cm = phi[mid] * U[mid]                              # componente assiale velocità assoluta (midspan)
 
     # Prova eq.Radiale
 
     Cu1 = k1 / r
     Cu2 = k2 / r
 
-    # Triangoli di velocitÃ 
+    # Triangoli di velocità
 
     alpha1 = (np.arctan(k1 / (r * Cm)) / (2 * 3.14)) * 360  # gli angoli sono espressi in gradi
     alpha2 = (np.arctan(k2 / (r * Cm)) / (2 * 3.14)) * 360
