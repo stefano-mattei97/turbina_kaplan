@@ -18,6 +18,9 @@ def TriangoliVelocita(dato,sezione):
         plt.title('Triangoli velocità Hub',)
     if sezione == 10:
         plt.title('Triangoli velocità Tip')
+
+
+
     plt.show()
     return ()
 
