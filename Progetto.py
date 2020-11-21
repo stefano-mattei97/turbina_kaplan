@@ -9,17 +9,20 @@ from TriangoliVelocita import TriangoliVelocita
 from PlotVariabili import PlotVariabili
 
 #INPUT
-Q = 0.28                             #[m^3/s]
-H = 4
-Np = 4                            #numero poli
+Q = 48.11                          #[m^3/s]
+H = 15
+Np = 40                            #numero poli con moltiplicatore
 efficiency = 0.85
+
 
 #COSTANTI
 f = 50
 rho = 998
 g = 9.81
-k1 = 4                     #costante Cu in ingresso
-k2 = 1.5                   #costante Cu in uscita
+#k1 = 4                     #costante Cu in ingresso
+#k2 = 1.5                   #costante Cu in
+
+
 
 #OPERATING POINT
 N,omega,P,Ns,Nsd,omegas,Z = OperatingPoint(f, Np, rho, Q, g, H, efficiency)
@@ -31,7 +34,7 @@ Cr1 = Q/(math.pi * Dgv * A)                               #componenete radiale i
 Zgv = 16
 tgv = (math.pi * Dgv) / Zgv                               #passo
 #GIRANTE
-data,Database,We = Girante(g, H, omega, Q, k1, k2, Di, De)
+data,Database,We = Girante(g, H, omega, Q, Di, De)
 sezione=5
 sezionemid = Database.iloc[sezione]
 TriangoliVelocita(sezionemid,sezione)

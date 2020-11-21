@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-def Girante(g, H, omega, Q, k1, k2, Di, De):
+def Girante(g, H, omega, Q, Di, De):
     We = g * H                                         # lavoro di Eulero
 
     step = 11
@@ -17,21 +17,31 @@ def Girante(g, H, omega, Q, k1, k2, Di, De):
 
     Cm = phi[mid] * U[mid]                              # componente assiale velocità assoluta (midspan)
 
-    # Prova eq.Radiale
+    # eq.Radiale
 
-    Cu1 = k1 / r
-    Cu2 = k2 / r
+    Cu2 = 0
 
-    # Triangoli di velocità mid
+    Cu1 = We/U
 
-    alpha1 = (np.arctan(k1 / (r * Cm)) / (2 * 3.14)) * 360  # gli angoli sono espressi in gradi rispetto alla direzione assiale
-    alpha2 = (np.arctan(k2 / (r * Cm)) / (2 * 3.14)) * 360
-    beta1 = (np.arctan((U / Cm) - (k1 / (r * Cm)))) / (2 * 3.14) * 360
+    # Triangoli di velocità
+
+    # gli angoli sono espressi in gradi rispetto alla direzione assiale
+    alpha1 = (np.arctan(Cu1 / Cm)) / (2 * 3.14) * 360
+    alpha2 = (np.arctan(Cu2 / Cm)) / (2 * 3.14) * 360
+    beta1 = (np.arctan((U / Cm) - (Cu1 / Cm))) / (2 * 3.14) * 360
+    beta2 = (np.arctan(U / Cm) / (2 * 3.14)) * 360
+
+    # gli angoli sono espressi in gradi rispetto alla direzione periferica
+    alphap1 = 90 - alpha1
+    alphap2 = 90 - alpha2
+    betap1 = 90 - beta1
+    betap2 = 90 - beta2
+
     Wu1 = U - Cu1
-    Wu2 = U - Cu2
+    Wu2 = U
     W1 = (Wu1**2 + Cm**2)**0.5
-    W2 = (Wu2**2 + Cm**2)**0.5
-    beta2 = (np.arcsin(Wu2/W2)/ (2 * 3.14)) * 360
+    W2 = (Cm**2 + Wu2**2)**0.5
+
     WE = U*(Cu1 - Cu2)
     data = {'R%': rNorm,
             'U': U,
