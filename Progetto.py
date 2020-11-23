@@ -52,6 +52,7 @@ PlotVariabili(Database)
 Cut, Delta = CanaleToroidale(Di, De, Dgv, Cu1)
 
 #TRIANGOLI DI VELOCITA' DISTRIBUTORE
+alpha1d = (np.arctan(Cut / Cr1)) / (2 * 3.14) * 360
 step=0
 TriangoliVelocitaDistributore(Cr1,Vgv,Cut,step)
 step=5

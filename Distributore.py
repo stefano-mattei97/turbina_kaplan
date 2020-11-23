@@ -15,6 +15,8 @@ def Distributore(H, g, N, Q, A, P):
     tgv = (math.pi * Dgv) / Zgv                                              # passo
 
 
+
+
     return(Dgv,Vgv,Cr1)
 
 

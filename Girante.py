@@ -13,16 +13,16 @@ def Girante(g, H, omega, Q, Di, De):
     U = omega * r                                       # blade speed
     phi = Q / (omega * (2 * r) ** 3)                    # flow coefficient
 
+    # eq.Radiale
+
+    Cu2 = 0
+
+    Cu1 = We / U
 
     # Free vortex: Cm costante
 
     Cm = phi[mid] * U[mid]                              # componente assiale velocità assoluta (midspan)
 
-    # eq.Radiale
-
-    Cu2 = 0
-
-    Cu1 = We/U
 
     # Triangoli di velocità
 
@@ -43,10 +43,11 @@ def Girante(g, H, omega, Q, Di, De):
     W1 = (Wu1**2 + Cm**2)**0.5
     W2 = (Cm**2 + Wu2**2)**0.5
     C1 = (Cm**2 + Cu1**2)**0.5
-
+    C2 = (Cm**2 + Cu2**2)**0.5
 
 
     WE = U*(Cu1 - Cu2)
+
     data = {'R%': rNorm,
             'U': U,
             'Cm': Cm,
@@ -56,10 +57,12 @@ def Girante(g, H, omega, Q, Di, De):
             'W1': W1,
             'Wu2': Wu2,
             'W2':W2,
+            'C1':C1,
+            'C2':C2,
             'WE':WE,
             'beta1': beta1,
             'beta2': beta2,
             'alpha1': alpha1,
             'alpha2': alpha2}
-    Database = pd.DataFrame(data, columns=['R%','U', 'Wu1', 'W1', 'Wu2', 'W2', 'Cm', 'Cu1', 'Cu2', 'WE', 'beta1', 'beta2', 'alpha1', 'alpha2'])
+    Database = pd.DataFrame(data, columns=['R%','U', 'Wu1', 'W1', 'Wu2', 'W2', 'Cm', 'Cu1', 'Cu2', 'C1', 'C2', 'WE', 'beta1', 'beta2', 'alpha1', 'alpha2'])
     return(data,Database,We,Cu1)

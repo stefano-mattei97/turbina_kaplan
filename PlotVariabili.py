@@ -7,15 +7,20 @@ import pandas as pd
 def PlotVariabili(dato):
     fig = plt.figure()
 
+
     plt.subplot(211)
     plt.title('Andamento delle Velocità')
     plt.xlabel('m/s')
     plt.ylabel('R%')
-    plt.plot(dato['U'],dato['R%'])
+    plt.plot(dato['U'], dato['R%'])
     plt.plot(dato['Cm'], dato['R%'])
     plt.plot(dato['Cu1'], dato['R%'])
     plt.plot(dato['Cu2'], dato['R%'])
-    plt.legend(['U', 'Cm', 'Cu1', 'Cu2'], prop={'size': 6}, loc='center')
+    plt.plot(dato['C1'], dato['R%'])
+    plt.plot(dato['C2'], dato['R%'])
+    plt.legend(['U', 'Cm', 'Cu1', 'Cu2','C1','C2'], prop={'size': 6}, loc='center')
+
+
 
     plt.subplot(212)
     plt.title('Andamento lavoro di Eulero')
