@@ -24,7 +24,6 @@ rho = 998
 g = 9.81
 
 
-
 #OPERATING POINT
 N,omega,P,Ns,Nsd,omegas,Z = OperatingPoint(f, Np, rho, Q, g, H, efficiency)
 #CANALE MERIDIANO
