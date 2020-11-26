@@ -13,6 +13,7 @@ def Girante(g, H, omega, Q, Di, De):
     U = omega * r                                       # blade speed
     phi = Q / (omega * (2 * r) ** 3)                    # flow coefficient
 
+
     # eq.Radiale
 
     Cu2 = 0

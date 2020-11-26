@@ -10,6 +10,7 @@ from PlotVariabili import PlotVariabili
 from CanaleToroidale import CanaleToroidale
 from Distributore import Distributore
 from TriangoliVelocitaDistributore import TriangoliVelocitaDistributore
+from clcd import clcd
 
 #INPUT
 Q = 48.11                          #[m^3/s]
@@ -27,10 +28,10 @@ g = 9.81
 #OPERATING POINT
 N,omega,P,Ns,Nsd,omegas,Z = OperatingPoint(f, Np, rho, Q, g, H, efficiency)
 #CANALE MERIDIANO
-K,De,tau,Di,A = CanaleMeridiano(H, N)
+K,De,tau,Di,A,chord = CanaleMeridiano(H, N)
 
 #DISTRIBUTORE
-Dgv,Vgv,Cr1 = Distributore(H, g, N, Q, A, P)
+Dgv,Vgv,Cr1,Re = Distributore(H, g, N, Q, A, P,chord)
 
 
 #GIRANTE
@@ -50,14 +51,31 @@ PlotVariabili(Database)
 #CANALE TOROIDALE
 Cut, Delta = CanaleToroidale(Di, De, Dgv, Cu1)
 
+
+#XFOIL
+alphamax = clcd()
+
 #TRIANGOLI DI VELOCITA' DISTRIBUTORE
 alpha1d = (np.arctan(Cut / Cr1)) / (2 * 3.14) * 360
 step=0
-TriangoliVelocitaDistributore(Cr1,Vgv,Cut,step)
+TriangoliVelocitaDistributore(Cr1,Vgv,Cut,step,chord)
 step=5
-TriangoliVelocitaDistributore(Cr1,Vgv,Cut,step)
+TriangoliVelocitaDistributore(Cr1,Vgv,Cut,step,chord)
 step=10
-TriangoliVelocitaDistributore(Cr1,Vgv,Cut,step)
+TriangoliVelocitaDistributore(Cr1,Vgv,Cut,step,chord)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -9,4 +9,5 @@ def CanaleMeridiano(H, N):
     tau = 0.25 * De                                       # distanza pale distributrici e asse runner [m]
     Di = (0.25 + (0.0951 / K)) * De                       # diametro hub [m]
     A = 0.13 * De                                         # larghezza canale meridiano [m]
-    return (K, De, tau, Di, A)
+    chord = (De - Di)/4
+    return (K, De, tau, Di, A, chord)

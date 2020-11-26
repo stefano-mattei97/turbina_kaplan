@@ -1,4 +1,3 @@
-import numpy as np
 import matplotlib.pyplot as plt
 import math
 import pandas as pd
@@ -17,24 +16,16 @@ def PlotVariabili(dato):
 
     fig1 = plt.figure()
     plt.subplot(111)
-    plt.title('Andamento Velocità in Ingresso')
+    plt.title('Andamento Velocità in Ingresso ed Uscita')
     plt.ylabel('R%')
     plt.xlabel('m/s')
     plt.plot(dato['Cu1'], dato['R%'])
     plt.plot(dato['C1'], dato['R%'])
     plt.plot(dato['W1'], dato['R%'])
-    plt.legend(['Cu1','C1','W1'], prop={'size': 8}, loc='upper center')
-    plt.show()
-
-    fig2 = plt.figure()
-    plt.subplot(111)
-    plt.title('Andamento Velocità in Uscita')
-    plt.ylabel('R%')
-    plt.xlabel('m/s')
     plt.plot(dato['Cu2'], dato['R%'])
     plt.plot(dato['C2'], dato['R%'])
     plt.plot(dato['W2'], dato['R%'])
-    plt.legend(['Cu2','C2','W2'], prop={'size': 8}, loc='upper center')
+    plt.legend(['Cu1','C1','W1','Cu2','C2','W2'], prop={'size': 8}, loc='upper center')
     plt.show()
 
     fig3 = plt.figure()
