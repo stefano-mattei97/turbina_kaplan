@@ -50,8 +50,8 @@ def TriangoliVelocitaDistributore (Cr1, Vgv, Cut,step,chord,alphamax):
     ax.plot(-yextra, -xextra, color='k')
     ax.plot(-yintra, -xintra, color='k')
     ax.set_aspect(1)
-    ax.set_xlabel('x coord')
-    ax.set_ylabel('y coord')
+    ax.set_xlabel('y coord')
+    ax.set_ylabel('x coord')
     ax.set_title('NACA' + str(first_digit) + str(second_digit) + str(third_digit))
 
     #plot velocità

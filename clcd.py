@@ -3,10 +3,10 @@ import numpy as np
 import pandas as pd
 from xfoil import callXF
 
-def clcd ():
+def clcd (Rer):
     NACA = '6412'
     NNodes = '170'
-    Re = '1006623.1083009231'
+    Re = str(Rer)
     iter = '500'
     inputFile = 'xfoilInput'
     nacaFile = 'nacaProfile'
