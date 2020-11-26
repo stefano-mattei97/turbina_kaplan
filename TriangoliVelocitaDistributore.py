@@ -1,8 +1,9 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import math
 
 
-def TriangoliVelocitaDistributore (Cr1, Vgv, Cut,step,chord):
+def TriangoliVelocitaDistributore (Cr1, Vgv, Cut,step,chord,alphamax):
 
     plt.figure()
     ax = plt.subplot(111)
@@ -45,7 +46,7 @@ def TriangoliVelocitaDistributore (Cr1, Vgv, Cut,step,chord):
     yintra = yc - yt * np.cos(teta)
 
 
-    ax.plot(-yc, -xcoord, color='k', ls='--')
+    ax.plot(yc,xcoord, color='k', ls='--')
     ax.plot(-yextra, -xextra, color='k')
     ax.plot(-yintra, -xintra, color='k')
     ax.set_aspect(1)
@@ -53,29 +54,14 @@ def TriangoliVelocitaDistributore (Cr1, Vgv, Cut,step,chord):
     ax.set_ylabel('y coord')
     ax.set_title('NACA' + str(first_digit) + str(second_digit) + str(third_digit))
 
+    #plot velocità
 
+    alpha0 = math.radians(alphamax)
+    Vgt= Vgv * np.sin(alpha0)
+    Vgx= Vgv * np.cos(alpha0)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    ax.arrow(0, 0,0, -Vgv, length_includes_head=True, width=0.15, facecolor='y')
-    ax.arrow(0, -Vgv, Cut[step],-Cr1, length_includes_head=True, width=0.15, facecolor='b')
+    ax.arrow(Vgt,Vgx,0,0, length_includes_head=True, width=0.15, facecolor='y')
+    ax.arrow(0, -chord, Cut[step],-Cr1, length_includes_head=True, width=0.15, facecolor='b')
     plt.legend(['C0','C1'], prop={'size': 6}, loc='upper right')
     if step == 5:
         plt.title('Triangoli velocità Distributore Midspan',)
