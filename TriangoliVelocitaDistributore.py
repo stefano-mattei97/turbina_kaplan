@@ -46,7 +46,7 @@ def TriangoliVelocitaDistributore (Cr1, Vgv, Cut,step,chord,alphamax):
     yintra = yc - yt * np.cos(teta)
 
 
-    ax.plot(yc,xcoord, color='k', ls='--')
+    ax.plot(-yc,-xcoord, color='k', ls='--')
     ax.plot(-yextra, -xextra, color='k')
     ax.plot(-yintra, -xintra, color='k')
     ax.set_aspect(1)
@@ -60,9 +60,16 @@ def TriangoliVelocitaDistributore (Cr1, Vgv, Cut,step,chord,alphamax):
     Vgt= Vgv * np.sin(alpha0)
     Vgx= Vgv * np.cos(alpha0)
 
-    ax.arrow(Vgt,Vgx,0,0, length_includes_head=True, width=0.15, facecolor='y')
+    ax.arrow(Vgt,Vgx,-Vgt,-Vgx, length_includes_head=True, width=0.15, facecolor='y')
     ax.arrow(0, -chord, Cut[step],-Cr1, length_includes_head=True, width=0.15, facecolor='b')
     plt.legend(['C0','C1'], prop={'size': 6}, loc='upper right')
+    plt.yticks([0,-5,-10,-15,-20,-25],[0, 5, 10, 15, 20,25])
+    assex=np.linspace(-10,10,100)
+    asseyingresso=np.zeros(len(assex))
+    asseyuscita = np.zeros(len(assex))
+    asseyuscita = asseyuscita-chord
+    plt.plot(assex,asseyingresso,color='red',ls='--')
+    plt.plot(assex,asseyuscita,color='red',ls='--')
     if step == 5:
         plt.title('Triangoli velocità Distributore Midspan',)
     if step == 0:

@@ -11,6 +11,7 @@ from CanaleToroidale import CanaleToroidale
 from Distributore import Distributore
 from TriangoliVelocitaDistributore import TriangoliVelocitaDistributore
 from clcd import clcd
+from BladeDesign import BladeDesign
 
 #INPUT
 Q = 48.11                          #[m^3/s]
@@ -65,6 +66,10 @@ step=5
 TriangoliVelocitaDistributore(Cr1,Vgv,Cut,step,chord,alphamax)
 step=10
 TriangoliVelocitaDistributore(Cr1,Vgv,Cut,step,chord,alphamax)
+
+#BLADE DESIGN
+
+
 
 
 
