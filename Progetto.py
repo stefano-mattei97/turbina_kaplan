@@ -52,7 +52,6 @@ PlotVariabili(Database)
 #CANALE TOROIDALE
 Cut, Delta = CanaleToroidale(Di, De, Dgv, Cu1)
 
-
 #XFOIL
 alphamax = clcd(Re)
 
@@ -68,6 +67,7 @@ step=10
 TriangoliVelocitaDistributore(Cr1,Vgv,Cut,step,chord,alphamax)
 thoma=np.zeros(len(data['U']))
 Hs=np.zeros(len(data['U']))
+
 #BLADE DESIGN
 sez=Database.iloc[0]
 slipas,test,test2,CL,liftratio,chordto,pitchto,nqe = BladeDesign(sez,g,H,efficiency,rho)
