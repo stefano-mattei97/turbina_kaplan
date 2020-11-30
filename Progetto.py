@@ -58,8 +58,8 @@ alphamax = clcd(Re)
 
 #TRIANGOLI DI VELOCITA' DISTRIBUTORE
 
-
 alpha1d = (np.arctan(Cut / Cr1)) / (2 * 3.14) * 360
+deflessione = alpha1d - alphamax
 step=0
 TriangoliVelocitaDistributore(Cr1,Vgv,Cut,step,chord,alphamax)
 step=5
