@@ -39,12 +39,14 @@ def callXF(NACA, NNodes, Re, iter, inputFile, nacaFile, polarFile, AoAmin, AoAma
     df.columns = ["AoA", "CL", "CD", "CDp", "CM", "Top_Xtr", "Bot_Xtr"]
     pf = polarFile + '.csv'
     df.to_csv(polarFile)
+    '''
     plt.plot(df['AoA'], df['CL'])
     plt.show()
     plt.close()
     plt.plot(df['AoA'], df['CDp'])
     plt.show()
     plt.close()
+    '''
     clpolar = interp1d(df['AoA'], df['CL'], kind='cubic')
     cdpolar = interp1d(df['AoA'], df['CD'], kind='cubic')
 

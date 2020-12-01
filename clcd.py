@@ -28,10 +28,10 @@ def clcd (Rer):
     plt.subplot(111)
     plt.title('Cl-Cd')
     plt.xlabel('alpha0')
+    plt.plot(cd.x, cd.y)
     plt.plot(cl.x, cl.y)
     plt.plot(alphamax, ClMax, marker='o', color='black')
-    plt.plot(cd.x, cd.y)
-    plt.legend(['Cl', 'Cd'], prop={'size': 8}, loc='upper left')
+    plt.legend(['Cl', 'Cd','MaxCl'], prop={'size': 8}, loc='upper left')
     plt.show()
 
     return(alphamax)

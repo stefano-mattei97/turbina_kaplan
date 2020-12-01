@@ -19,7 +19,7 @@ def Distributore(H, g, N, Q, A, P,chord):
 
 
 
-    return(Dgv,Vgv,Cr1,Re)
+    return(Dgv,Vgv,Cr1,Re,Kug,Kfg)
 
 
 

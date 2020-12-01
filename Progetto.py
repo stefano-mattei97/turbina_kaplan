@@ -12,11 +12,12 @@ from Distributore import Distributore
 from TriangoliVelocitaDistributore import TriangoliVelocitaDistributore
 from clcd import clcd
 from BladeDesign import BladeDesign
+from Drafttube import Drafttube
 
 #INPUT
 Q = 48.11                          #[m^3/s]
 H = 15
-Np = 40                            #numero poli con moltiplicatore
+Np = 40                           #numero poli con moltiplicatore
 efficiency = 0.85
 
 
@@ -32,7 +33,7 @@ N,omega,P,Ns,Nsd,omegas,Z = OperatingPoint(f, Np, rho, Q, g, H, efficiency)
 K,De,tau,Di,A,chord = CanaleMeridiano(H, N)
 
 #DISTRIBUTORE
-Dgv,Vgv,Cr1,Re = Distributore(H, g, N, Q, A, P,chord)
+Dgv,Vgv,Cr1,Re,Kug,Kfg = Distributore(H, g, N, Q, A, P,chord)
 
 
 #GIRANTE
@@ -65,12 +66,53 @@ step=5
 TriangoliVelocitaDistributore(Cr1,Vgv,Cut,step,chord,alphamax)
 step=10
 TriangoliVelocitaDistributore(Cr1,Vgv,Cut,step,chord,alphamax)
-thoma=np.zeros(len(data['U']))
-Hs=np.zeros(len(data['U']))
+
+
 
 #BLADE DESIGN
+slip=np.zeros(5)
+alpha=np.zeros(5)
+
+#sezione Hub
+n=0
+plot=0
+
 sez=Database.iloc[0]
-slipas,test,test2,CL,liftratio,chordto,pitchto,nqe = BladeDesign(sez,g,H,efficiency,rho)
+str='410_CL_CD.txt'
+stralpha='410_CL_alpha.txt'
+slip[n],alpha[n]= BladeDesign(sez,g,H,efficiency,rho,str,stralpha,Ns,plot)
+n=n+1
+
+#sezione Hub-Mid
+sez=Database.iloc[3]
+str='410_CL_CD.txt'
+stralpha='410_CL_alpha.txt'
+slip[n],alpha[n]= BladeDesign(sez,g,H,efficiency,rho,str,stralpha,Ns,plot)
+n=n+1
+
+#sezione Mid
+sez=Database.iloc[5]
+str='410_CL_CD.txt'
+stralpha='410_CL_alpha.txt'
+slip[n],alpha[n]= BladeDesign(sez,g,H,efficiency,rho,str,stralpha,Ns,plot)
+n=n+1
+
+
+#sezione Mid-Top
+sez=Database.iloc[7]
+str='423_CL_CD.txt'
+stralpha='423_CL_alpha.txt'
+slip[n],alpha[n]= BladeDesign(sez,g,H,efficiency,rho,str,stralpha,Ns,plot)
+n=n+1
+
+#sezione Top
+plot=1
+sez=Database.iloc[10]
+str='444_CL_CD.txt'
+stralpha='444_CL_alpha.txt'
+slip[n],alpha[n]= BladeDesign(sez,g,H,efficiency,rho,str,stralpha,Ns,plot)
+
+#Drafttube(Q,H,Np,Ns,De,rho,g,N,omega,P)
 
 
 

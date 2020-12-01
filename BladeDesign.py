@@ -1,30 +1,46 @@
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 import math
 from Girante import Girante
 
 
 
-def BladeDesign (dato,g,H,efficiency,rho):
+def BladeDesign (dato,g,H,efficiency,rho,str,stralpha,Ns,plot):
 
 
-    C3 = 2                                                    #[m/s]  hip:pag 291 'Macchine Idrauliche' [1.5-2]
+    C3 = 2                                                   #[m/s]  hip:pag 291 'Macchine Idrauliche' [1.5-2]
     Wm = (dato['W1'] +dato['W2'])/2
     Wmu = (dato['Wu1'] + dato['Wu2'])/2
     patm = 10.34528                                           #[m]
     Patm = 101324                                             #[Pa]
     Pv= 2985.7                                                #[Pa] pressione di vapore a T=24° (Rogers-Mayhew)
-    pmin = 2.2                                                # pressione minima acqua [2-2.5] [m]
-    K = 2.8                                                   # numero caratteristico del profilo [2.6-3]
-    etas = 0.9                                                # efficienza di scambio energetico [0.88-0.91]
+    pmin = 2.2                                          # pressione minima acqua [2-2.5] [m]
+    K = 2.7                                                  # numero caratteristico del profilo [2.6-3]
+    etas = 0.89                                        # efficienza di scambio energetico [0.88-0.91]
     betam = 90 + math.degrees(np.arctan(Wmu/dato['Cm']))              # rispetto alla direzione periferica in gradi
 
     #step0 : Cavitazione
 
     Hn = H * efficiency                                            # carico idraulico netto
     Nqe = 2.294/(Hn**0.486)                                        # Specif speed (F. Schweiger - J. Gregory)
-    thoma = 1.5241 * (Nqe**1.46) + (C3**2/(2*g*Hn))                # Coefficiente di Thoma
+    thoma = 1.5241 * (Nqe**1.46) + (C3**2/(2*g*Hn))                # Coefficiente di Thoma                                                        #[m]
     Hs = ((Patm - Pv)/(rho*g)) + ((C3**2)/(2*g)) - (thoma*Hn)      # Maximun Suction Head
+
+    #Grafico C.Thoma
+
+    if plot==1:
+        data2 = pd.read_csv('diagrammadiMoody.txt', delim_whitespace=True)
+        fig = plt.figure()
+        ax = plt.subplot(111)
+        plt.title('Diagramma di Moody')
+        ax.plot(data2['Ns'], data2['thoma'], color='k', ls='-')
+        plt.plot(Ns, thoma, marker='o', color='red')
+        ax.annotate('Zona Senza Cavitazione', (2,2),color='red')
+        ax.annotate('Zona con Cavitazione',(4,0.5),color='red')
+        ax.set_xlabel('Ns[rad]')
+        ax.set_ylabel('thoma')
+        plt.show()
 
     #step1 : calcolo coefficiente di lift per ogni raggio cl
 
@@ -36,47 +52,36 @@ def BladeDesign (dato,g,H,efficiency,rho):
     sliptru=np.zeros(6)                         #valore slip di confronto
     liftratio=np.zeros(6)
     CL=np.zeros(6)
+    CD = np.zeros(6)
     chordtopitch=np.zeros(6)
     pitchtochord=np.zeros(6)
-    for j in range(len(slip)):
-        #step3 : calcolo l/t
-
-        chordtopitch[j] = (g * efficiency * H * dato['Cm'] * np.cos(math.radians(slip[j]))) / (Wm**2 * dato['U'] * cl * np.sin(math.radians(180 - betam - slip[j])))
-
-        #step4 : calcolo coefficiente di lift cL
-
+    j=0
+    deltatest = 99
+    delta = [0, 0, 0, 0, 0, 0]
+    for j in range(len(slip)) :
+        chordtopitch[j] = (g * efficiency * H * dato['Cm'] * np.cos(math.radians(slip[j]))) / (Wm**2 * dato['U'] * cl * np.sin(math.radians(betam - slip[j])))
         data = pd.read_csv('liftratio.txt', delim_whitespace=True)
-        pitchtochord[j]=(chordtopitch[j])**(-1)
+
+        #step4  calcolo coefficiente di lift cL
+        pitchtochord[j] = (chordtopitch[j])**(-1)
         liftratio[j] = np.interp(pitchtochord[j], data['t/chord'], data['liftratio'])
-        CL[j]=cl/liftratio[j]
+        CL[j] = cl/liftratio[j]
 
-        #step5 : calcolo coefficiente di drag cD
+        #step5  calcolo coefficiente di drag cD
+        CLCD = pd.read_csv(str, delim_whitespace=True)
+        CD[j] = np.interp(CL[j],CLCD['CL'], CLCD['CD'])
+        sliptru[j] = math.degrees(np.arctan(CD[j]/CL[j]))
 
-        CLCD = pd.read_csv('432_CL_CD.txt', delim_whitespace=True)
-        CD = np.interp(CL[j],CLCD['CL'], CLCD['CD'])
-
-        #step6 : calcolo angolo di slip
-
-        sliptru[j] = math.degrees(np.arctan(CD/CL[j]))
-        sliptru[j] = round(sliptru[j], 1)
-        if sliptru[j]==slip[j]:
+        #step6  calcolo angolo di slip
+        delta[j] = abs(slip[j] - sliptru[j])
+        if delta[j]<deltatest:
             slipcorretto=slip[j]
+            deltatest=delta[j]
+            n=j
 
-    return(slipcorretto,slip,sliptru,CL,liftratio,chordtopitch,pitchtochord,Nqe)
-
-
-
-
-
-
+    #step 7: calcolo angolo di attacco
+    dataalpha = pd.read_csv(stralpha, delim_whitespace=True)
+    alpha = np.interp(CL[n], dataalpha['CL'], dataalpha['alpha'])
 
 
-    #step7 : calcolo angolo di attacco delta
-
-
-
-
-
-
-
-
+    return(slipcorretto,alpha)
