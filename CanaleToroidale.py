@@ -11,7 +11,7 @@ def CanaleToroidale(Di, De, Dgv, Cu1):
     Cut= np.zeros(step)
     Delta = np.zeros(step)
     for i in range (step):
-        Cut[i] = Cu1[(step-1)-i] * R[i]/(Dgv/2)
+        Cut[i] = Cu1[(step-1)-i] * R[(step-1)-i]/(Dgv/2)
         Delta[i] = Cut[i]-Cu1[(step-1)-i]
     return(Cut,Delta)
 

@@ -29,6 +29,7 @@ g = 9.81
 
 #OPERATING POINT
 N,omega,P,Ns,Nsd,omegas,Z = OperatingPoint(f, Np, rho, Q, g, H, efficiency)
+
 #CANALE MERIDIANO
 K,De,tau,Di,A,chord = CanaleMeridiano(H, N)
 
@@ -43,8 +44,9 @@ for jj in range(len(sezioni)):
     girsez=Database.iloc[sezioni[jj]]
     TriangoliVelocita(girsez,sezioni[jj])
 PlotVariabili(Database)
+
 #CANALE TOROIDALE
-Cut, Delta = CanaleToroidale(Di, De, Dgv, Cu1)
+Cut, Delta = CanaleToroidale(Di, De, Dgv, Cu1, efficiency)
 
 #XFOIL
 alphamax = clcd(Re)
