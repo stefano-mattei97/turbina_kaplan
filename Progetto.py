@@ -12,7 +12,7 @@ from Distributore import Distributore
 from TriangoliVelocitaDistributore import TriangoliVelocitaDistributore
 from clcd import clcd
 from BladeDesign import BladeDesign
-from Drafttube import Drafttube
+
 
 #INPUT
 Q = 48.11                          #[m^3/s]
@@ -38,18 +38,11 @@ Dgv,Vgv,Cr1,Re,Kug,Kfg = Distributore(H, g, N, Q, A, P,chord)
 
 #GIRANTE
 data,Database,We,Cu1 = Girante(g, H, omega, Q, Di, De)
-sezione=5
-sezionemid = Database.iloc[sezione]
-TriangoliVelocita(sezionemid,sezione)
-sezione=0
-sezionehub = Database.iloc[sezione]
-TriangoliVelocita(sezionehub,sezione)
-sezione=10
-sezionetip = Database.iloc[sezione]
-TriangoliVelocita(sezionetip,sezione)
+sezioni=[0,5,10]
+for jj in range(len(sezioni)):
+    girsez=Database.iloc[sezioni[jj]]
+    TriangoliVelocita(girsez,sezioni[jj])
 PlotVariabili(Database)
-
-
 #CANALE TOROIDALE
 Cut, Delta = CanaleToroidale(Di, De, Dgv, Cu1)
 
@@ -60,59 +53,27 @@ alphamax = clcd(Re)
 
 alpha1d = (np.arctan(Cut / Cr1)) / (2 * 3.14) * 360
 deflessione = alpha1d - alphamax
-step=0
-TriangoliVelocitaDistributore(Cr1,Vgv,Cut,step,chord,alphamax)
-step=5
-TriangoliVelocitaDistributore(Cr1,Vgv,Cut,step,chord,alphamax)
-step=10
-TriangoliVelocitaDistributore(Cr1,Vgv,Cut,step,chord,alphamax)
-
-
+for kk in range(len(sezioni)):
+    TriangoliVelocitaDistributore(Cr1, Vgv, Cut, sezioni[kk], chord, alphamax)
 
 #BLADE DESIGN
 slip=np.zeros(5)
 alpha=np.zeros(5)
 
-#sezione Hub
-n=0
-plot=0
 
-sez=Database.iloc[0]
-str='410_CL_CD.txt'
-stralpha='410_CL_alpha.txt'
-slip[n],alpha[n]= BladeDesign(sez,g,H,efficiency,rho,str,stralpha,Ns,plot)
-n=n+1
-
-#sezione Hub-Mid
-sez=Database.iloc[3]
-str='410_CL_CD.txt'
-stralpha='410_CL_alpha.txt'
-slip[n],alpha[n]= BladeDesign(sez,g,H,efficiency,rho,str,stralpha,Ns,plot)
-n=n+1
-
-#sezione Mid
-sez=Database.iloc[5]
-str='410_CL_CD.txt'
-stralpha='410_CL_alpha.txt'
-slip[n],alpha[n]= BladeDesign(sez,g,H,efficiency,rho,str,stralpha,Ns,plot)
-n=n+1
+slip=np.zeros(5)
+alpha=np.zeros(5)
+listafilecdcl = ['410_CL_CD.txt','410_CL_CD.txt','410_CL_CD.txt','423_CL_CD.txt','444_CL_CD.txt']
+listafilealpha = ['410_CL_alpha.txt','410_CL_alpha.txt','410_CL_alpha.txt','423_CL_alpha.txt','444_CL_alpha.txt']
+lsezioni = [1,3,5,7,10]
+for ii in range(len(listafilecdcl)):
+    sez=Database.iloc[lsezioni[ii]]
+    str = listafilecdcl[ii]
+    stralpha=listafilealpha[ii]
+    slip[ii],alpha[ii] = BladeDesign(sez,g,H,efficiency,rho,str,stralpha,Ns,ii)
 
 
-#sezione Mid-Top
-sez=Database.iloc[7]
-str='423_CL_CD.txt'
-stralpha='423_CL_alpha.txt'
-slip[n],alpha[n]= BladeDesign(sez,g,H,efficiency,rho,str,stralpha,Ns,plot)
-n=n+1
 
-#sezione Top
-plot=1
-sez=Database.iloc[10]
-str='444_CL_CD.txt'
-stralpha='444_CL_alpha.txt'
-slip[n],alpha[n]= BladeDesign(sez,g,H,efficiency,rho,str,stralpha,Ns,plot)
-
-#Drafttube(Q,H,Np,Ns,De,rho,g,N,omega,P)
 
 
 

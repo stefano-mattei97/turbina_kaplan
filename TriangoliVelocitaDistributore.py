@@ -8,11 +8,19 @@ def TriangoliVelocitaDistributore (Cr1, Vgv, Cut,step,chord,alphamax):
     plt.figure()
     ax = plt.subplot(111)
     ax.set_aspect(1)
+    chord = 25 * chord
+    # plot velocità
+
+    alpha0 = math.radians(alphamax)
+    Vgt = Vgv * np.sin(alpha0)
+    Vgx = Vgv * np.cos(alpha0)
+    ax.arrow(Vgt, Vgx, -Vgt, -Vgx, length_includes_head=True, width=0.15, facecolor='y')
+    ax.arrow(0, -chord, Cut[step], -Cr1, length_includes_head=True, width=0.15, facecolor='b')
 
     first_digit = 6
     second_digit = 4
     third_digit = 12
-    chord= 25*chord
+
 
 
     xcoord = np.linspace(0, chord, num=200)
@@ -60,8 +68,7 @@ def TriangoliVelocitaDistributore (Cr1, Vgv, Cut,step,chord,alphamax):
     Vgt= Vgv * np.sin(alpha0)
     Vgx= Vgv * np.cos(alpha0)
 
-    ax.arrow(Vgt,Vgx,-Vgt,-Vgx, length_includes_head=True, width=0.15, facecolor='y')
-    ax.arrow(0, -chord, Cut[step],-Cr1, length_includes_head=True, width=0.15, facecolor='b')
+
     plt.legend(['C0','C1'], prop={'size': 6}, loc='upper right')
     plt.yticks([0,-5,-10,-15,-20,-25],[0, 5, 10, 15, 20,25])
     assex=np.linspace(-10,10,100)

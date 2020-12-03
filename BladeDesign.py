@@ -29,7 +29,7 @@ def BladeDesign (dato,g,H,efficiency,rho,str,stralpha,Ns,plot):
 
     #Grafico C.Thoma
 
-    if plot==1:
+    if plot==2:
         data2 = pd.read_csv('diagrammadiMoody.txt', delim_whitespace=True)
         fig = plt.figure()
         ax = plt.subplot(111)
