@@ -71,7 +71,7 @@ for ii in range(len(listafilecdcl)):
     sez=Database.iloc[lsezioni[ii]]
     str = listafilecdcl[ii]
     stralpha=listafilealpha[ii]
-    slip[ii],alpha[ii],slippp,deltaa,slipstimato= BladeDesign(sez,g,H,efficiency,rho,str,stralpha,Ns,ii)
+    slip[ii],alpha[ii]= BladeDesign(sez,g,H,efficiency,rho,str,stralpha,Ns,ii)
 
 
 

@@ -84,4 +84,4 @@ def BladeDesign (dato,g,H,efficiency,rho,str,stralpha,Ns,plot):
     alpha = np.interp(CL[n], dataalpha['CL'], dataalpha['alpha'])
 
 
-    return(slipcorretto,alpha,sliptru,delta,slip)
+    return(slipcorretto,alpha)
