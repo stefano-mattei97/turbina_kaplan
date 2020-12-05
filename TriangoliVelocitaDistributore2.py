@@ -3,7 +3,7 @@ import numpy as np
 import math
 
 
-def TriangoliVelocitaDistributore (Cr1, Vgv, Cut,step,chord,alphamax,Cr0):
+def TriangoliVelocitaDistributore2 (Cr1, Cut,step,chord,alphamax,C0):
 
     plt.figure()
     ax = plt.subplot(111)
@@ -12,8 +12,8 @@ def TriangoliVelocitaDistributore (Cr1, Vgv, Cut,step,chord,alphamax,Cr0):
     # plot velocità
 
     alpha0 = math.radians(alphamax)
-    Vgt = Cr0*np.tan(alpha0)
-    Vgx = Cr0
+    Vgt = C0*np.sin(alpha0)
+    Vgx = C0*np.cos(alpha0)
     ax.arrow(Vgt, Vgx, -Vgt, -Vgx, length_includes_head=True, width=0.15, facecolor='y')
     ax.arrow(0, -chord, Cut[step], -Cr1, length_includes_head=True, width=0.15, facecolor='b')
 
@@ -64,11 +64,6 @@ def TriangoliVelocitaDistributore (Cr1, Vgv, Cut,step,chord,alphamax,Cr0):
 
     #plot velocità
 
-    alpha0 = math.radians(alphamax)
-    Vgt= Vgv * np.sin(alpha0)
-    Vgx= Vgv * np.cos(alpha0)
-
-
     plt.legend(['C0','C1'], prop={'size': 6}, loc='upper right')
     plt.yticks([0,-5,-10,-15,-20,-25],[0, 5, 10, 15, 20,25])
     assex=np.linspace(-10,10,100)
@@ -90,4 +85,3 @@ def TriangoliVelocitaDistributore (Cr1, Vgv, Cut,step,chord,alphamax,Cr0):
 
 
     return()
-

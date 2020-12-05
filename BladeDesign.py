@@ -48,7 +48,7 @@ def BladeDesign (dato,g,H,efficiency,rho,str,stralpha,Ns,plot):
     cl = (dato['W2']**2 - Wm**2 + (2 * g * (patm - Hs - pmin - etas * ((dato['C2']**2 - C3**2)/(2*g))))) / (K * Wm**2)
 
     #step2 : stima slip angle [2.5°-3°]
-    slipcorretto=0                              #valore dello slip corretto
+    slipcorretto=0                                      #valore dello slip corretto
     sliptru=np.zeros(len(slip))                         #valore slip di confronto
     liftratio=np.zeros(len(slip))
     CL=np.zeros(len(slip))
@@ -84,4 +84,4 @@ def BladeDesign (dato,g,H,efficiency,rho,str,stralpha,Ns,plot):
     alpha = np.interp(CL[n], dataalpha['CL'], dataalpha['alpha'])
 
 
-    return(slipcorretto,alpha)
+    return(slipcorretto,alpha,sliptru)
