@@ -26,7 +26,7 @@ data0 = {'Q': Q,
          'efficiency':efficiency
          }
 Inputdb = pd.DataFrame(data0, columns=['Q', 'H', 'Np','efficiency'],index=[0])
-
+Inputdb = Inputdb.iloc[0]
 
 #COSTANTI
 f = 50
@@ -37,19 +37,21 @@ data00 = {'f': f,
          'g': g,
          }
 Costantidb = pd.DataFrame(data00, columns=['f','rho','g'],index=[0])
+Costantidb=Costantidb.iloc[0]
+
 
 #OPERATING POINT
 N,omega,P,Ns,Nsd,omegas,Z,OperatingPointdb = OperatingPoint(f,Np,rho,Q,g,H,efficiency)
-
+OperatingPointdb=OperatingPointdb.iloc[0]
 #CANALE MERIDIANO
 K,De,tau,Di,A,chord,CanaleMeridianodb = CanaleMeridiano(H,N,efficiency)
-
+CanaleMeridianodb=CanaleMeridianodb.iloc[0]
 
 
 
 
 #GIRANTE
-data,Database,We,Cu1 = Girante(g, H, omega, Q, Di, De)
+data,Database,We,Cu1 = Girante(Costantidb['g'],Inputdb['H'], OperatingPointdb['Omega'],Inputdb['Q'], CanaleMeridianodb['Di'], CanaleMeridianodb['De'])
 sezioni=[0,5,10]
 for jj in range(len(sezioni)):
     girsez=Database.iloc[sezioni[jj]]
@@ -67,11 +69,14 @@ Cut, Delta,CanaleToroidaledb= CanaleToroidale(Di,De,Dgv,Cu1)
 
 #XFOIL
 C1=(Cr1**2+Cut**2)**0.5
+
 Re=(C1*chord)/(1.05e-6)
 alphamax,clcddb = clcd(Re)
 
 #TRIANGOLI DI VELOCITA' DISTRIBUTORE
 alpha0 = math.radians(alphamax)
+C0=(Cr0/np.cos(alpha0))
+print('C0:',C0,'C1',C1)
 alpha1d = (np.arctan(Cut / Cr1)) / (2 * 3.14) * 360
 deflessione = alpha1d - alphamax
 for kk in range(len(sezioni)):
@@ -83,7 +88,7 @@ alpha=np.zeros(5)
 BladeDesigndb=[]
 listafilecdcl = ['432_CL_CD.txt','432_CL_CD.txt','410_CL_CD.txt','423_CL_CD.txt','444_CL_CD.txt']
 listafilealpha = ['432_CL_alpha.txt','432_CL_alpha.txt','410_CL_alpha.txt','423_CL_alpha.txt','444_CL_alpha.txt']
-lsezioni = [0,2,5,8,10]
+lsezioni = [0,2,5,7,10]
 for ii in range(len(listafilecdcl)):
     sez=Database.iloc[lsezioni[ii]]
     str = listafilecdcl[ii]

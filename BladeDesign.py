@@ -108,4 +108,7 @@ def BladeDesign (dato,g,H,efficiency,rho,str,stralpha,Ns,plot,lsezioni):
                                                 'betam','Hn','Nqe','thoma','Hs','Slipc','alpha','chordtopitch',
                                                 'pitchtochord','CD','CL'],index=[lsezioni])
 
+    print('Valori Slip calcolati per la sezione:',lsezioni)
+    print('sono:',sliptru)
+
     return(Slipc,alpha,BladeDesigndb)
