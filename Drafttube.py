@@ -45,4 +45,10 @@ def Drafttube(Q,H,Ns,De,rho,g):
     ax.set_xlabel('Ns[rad]')
     ax.set_ylabel('thoma')
     plt.show()
-    return(thomacr,thoma,zsc,zscmax)
+    data = {'thomacr': thomacr,'thoma':thoma,'etaid': etaid,'h4': h4,'J': J,'h': h,'h3': h3,
+            'h5': h5,'D2':D2,'L':L,'B5':B5,'zsc':zsc,'He':He,'D3':D3,
+            'zscmax':zscmax,'NPSH':NPSH}
+    Drafttubedb = pd.DataFrame(data, columns=['thomacr','thoma', 'etaid', 'h4', 'J', 'h', 'h3',
+                                              'h5','D2','L','B5','zsc','He','D3','zscmax','NPSH'], index=[0])
+
+    return(Drafttubedb)

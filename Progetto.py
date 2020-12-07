@@ -25,8 +25,8 @@ data0 = {'Q': Q,
          'Np': Np,
          'efficiency':efficiency
          }
-Inputdb = pd.DataFrame(data0, columns=['Q', 'H', 'Np','efficiency'],index=[0])
-Inputdb = Inputdb.iloc[0]
+Inputdb1 = pd.DataFrame(data0, columns=['Q', 'H', 'Np','efficiency'],index=[0])
+Inputdb = Inputdb1.iloc[0]
 
 #COSTANTI
 f = 50
@@ -36,19 +36,22 @@ data00 = {'f': f,
          'rho': rho,
          'g': g
          }
-Costantidb = pd.DataFrame(data00, columns=['f','rho','g'],index=[0])
-Costantidb=Costantidb.iloc[0]
+Costantidb1 = pd.DataFrame(data00, columns=['f','rho','g'],index=[0])
+Costantidb=Costantidb1.iloc[0]
 
 
 #OPERATING POINT
 #N,omega,P,Ns,Nsd,omegas,Z,
-OperatingPointdb = OperatingPoint(Costantidb['f'],Inputdb['Np'],Costantidb['rho'],Inputdb['Q'],Costantidb['g'],Inputdb['H'],Inputdb['efficiency'])
-OperatingPointdb=OperatingPointdb.iloc[0]
+OperatingPointdb1 = OperatingPoint(Costantidb['f'],Inputdb['Np'],Costantidb['rho'],
+                                  Inputdb['Q'],Costantidb['g'],Inputdb['H'],
+                                  Inputdb['efficiency'])
+
+OperatingPointdb=OperatingPointdb1.iloc[0]
 
 #CANALE MERIDIANO
 
-CanaleMeridianodb = CanaleMeridiano(Inputdb['H'],OperatingPointdb['N'],Inputdb['efficiency'])
-CanaleMeridianodb=CanaleMeridianodb.iloc[0]
+CanaleMeridianodb1 = CanaleMeridiano(Inputdb['H'],OperatingPointdb['N'],Inputdb['efficiency'])
+CanaleMeridianodb=CanaleMeridianodb1.iloc[0]
 
 
 
@@ -65,16 +68,15 @@ PlotVariabili(Database)
 
 #DISTRIBUTORE
 #Dgv,Vgv,Cr1,Re,Kug,Kfg,Cr0,AltezzaDistributore = Distributore(H, g, N, Q, P, chord)
-#Cr0,Cr1,AltezzaDistributore,Dgv,
-Distributoredb = Distributore2(Inputdb['H'],Costantidb['g'],Inputdb['Q'], CanaleMeridianodb['chord'],CanaleMeridianodb['De'])
-Distributoredb=Distributoredb.iloc[0]
-#CANALE TOROIDALE
-Cut, Delta,CanaleToroidaledb= CanaleToroidale(CanaleMeridianodb['Di'],CanaleMeridianodb['De'],Distributoredb['Dgv'],Cu1)
 
+Distributoredb1 = Distributore2(Inputdb['H'],Costantidb['g'],Inputdb['Q'], CanaleMeridianodb['chord'],CanaleMeridianodb['De'])
+Distributoredb=Distributoredb1.iloc[0]
+#CANALE TOROIDALE
+Cut, Delta,CanaleToroidaledb1= CanaleToroidale(CanaleMeridianodb['Di'],CanaleMeridianodb['De'],Distributoredb['Dgv'],Cu1)
+CanaleToroidaledb=CanaleToroidaledb1.iloc[0]
 
 #XFOIL
 C1=(Distributoredb['Cr1']**2+Cut**2)**0.5
-
 Re=(C1*CanaleMeridianodb['chord'])/(1.05e-6)
 alphamax,clcddb = clcd(Re)
 
@@ -101,4 +103,4 @@ for ii in range(len(listafilecdcl)):
     slip[ii],alpha[ii],BladeDesigndb= BladeDesign(sez,Costantidb['g'],Inputdb['H'],Inputdb['efficiency'],Costantidb['rho'],str,stralpha,OperatingPointdb['Ns'],ii,lsezioni[ii])
 
 
-thomacr,thoma,zsc,zscmax= Drafttube(Inputdb['Q'],Inputdb['H'],OperatingPointdb['Ns'],CanaleMeridianodb['De'],Costantidb['rho'],Costantidb['g'])
+Drafttubedb= Drafttube(Inputdb['Q'],Inputdb['H'],OperatingPointdb['Ns'],CanaleMeridianodb['De'],Costantidb['rho'],Costantidb['g'])
