@@ -66,4 +66,4 @@ def Girante(g, H, omega, Q, Di, De):
             'alpha1': alpha1,
             'alpha2': alpha2}
     Database = pd.DataFrame(data, columns=['R%','U', 'Wu1', 'W1', 'Wu2', 'W2', 'Cm', 'Cu1', 'Cu2', 'C1', 'C2', 'WE', 'beta1', 'beta2', 'alpha1', 'alpha2'])
-    return(data,Database,We,Cu1)
+    return(Database,Cu1)

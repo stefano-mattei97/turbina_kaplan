@@ -34,24 +34,27 @@ rho = 998
 g = 9.81
 data00 = {'f': f,
          'rho': rho,
-         'g': g,
+         'g': g
          }
 Costantidb = pd.DataFrame(data00, columns=['f','rho','g'],index=[0])
 Costantidb=Costantidb.iloc[0]
 
 
 #OPERATING POINT
-N,omega,P,Ns,Nsd,omegas,Z,OperatingPointdb = OperatingPoint(f,Np,rho,Q,g,H,efficiency)
+#N,omega,P,Ns,Nsd,omegas,Z,
+OperatingPointdb = OperatingPoint(Costantidb['f'],Inputdb['Np'],Costantidb['rho'],Inputdb['Q'],Costantidb['g'],Inputdb['H'],Inputdb['efficiency'])
 OperatingPointdb=OperatingPointdb.iloc[0]
+
 #CANALE MERIDIANO
-K,De,tau,Di,A,chord,CanaleMeridianodb = CanaleMeridiano(H,N,efficiency)
+
+CanaleMeridianodb = CanaleMeridiano(Inputdb['H'],OperatingPointdb['N'],Inputdb['efficiency'])
 CanaleMeridianodb=CanaleMeridianodb.iloc[0]
 
 
 
 
 #GIRANTE
-data,Database,We,Cu1 = Girante(Costantidb['g'],Inputdb['H'], OperatingPointdb['Omega'],Inputdb['Q'], CanaleMeridianodb['Di'], CanaleMeridianodb['De'])
+Database,Cu1 = Girante(Costantidb['g'],Inputdb['H'], OperatingPointdb['Omega'],Inputdb['Q'], CanaleMeridianodb['Di'], CanaleMeridianodb['De'])
 sezioni=[0,5,10]
 for jj in range(len(sezioni)):
     girsez=Database.iloc[sezioni[jj]]
@@ -62,25 +65,27 @@ PlotVariabili(Database)
 
 #DISTRIBUTORE
 #Dgv,Vgv,Cr1,Re,Kug,Kfg,Cr0,AltezzaDistributore = Distributore(H, g, N, Q, P, chord)
-Cr0,Cr1,AltezzaDistributore,Dgv,Distributoredb = Distributore2(H, g, Q, chord,De)
+#Cr0,Cr1,AltezzaDistributore,Dgv,
+Distributoredb = Distributore2(Inputdb['H'],Costantidb['g'],Inputdb['Q'], CanaleMeridianodb['chord'],CanaleMeridianodb['De'])
+Distributoredb=Distributoredb.iloc[0]
 #CANALE TOROIDALE
-Cut, Delta,CanaleToroidaledb= CanaleToroidale(Di,De,Dgv,Cu1)
+Cut, Delta,CanaleToroidaledb= CanaleToroidale(CanaleMeridianodb['Di'],CanaleMeridianodb['De'],Distributoredb['Dgv'],Cu1)
 
 
 #XFOIL
-C1=(Cr1**2+Cut**2)**0.5
+C1=(Distributoredb['Cr1']**2+Cut**2)**0.5
 
-Re=(C1*chord)/(1.05e-6)
+Re=(C1*CanaleMeridianodb['chord'])/(1.05e-6)
 alphamax,clcddb = clcd(Re)
 
 #TRIANGOLI DI VELOCITA' DISTRIBUTORE
 alpha0 = math.radians(alphamax)
-C0=(Cr0/np.cos(alpha0))
+C0=(Distributoredb['Cr0']/np.cos(alpha0))
 print('C0:',C0,'C1',C1)
-alpha1d = (np.arctan(Cut / Cr1)) / (2 * 3.14) * 360
+alpha1d = (np.arctan(Cut / Distributoredb['Cr1'])) / (2 * 3.14) * 360
 deflessione = alpha1d - alphamax
 for kk in range(len(sezioni)):
-    TriangoliVelocitaDistributore2(Cr1, Cut, sezioni[kk], chord, alphamax,Cr0)
+    TriangoliVelocitaDistributore2(Distributoredb['Cr1'], Cut, sezioni[kk], CanaleMeridianodb['chord'], alphamax,Distributoredb['Cr0'])
 
 #BLADE DESIGN
 slip=np.zeros(5)
@@ -93,7 +98,7 @@ for ii in range(len(listafilecdcl)):
     sez=Database.iloc[lsezioni[ii]]
     str = listafilecdcl[ii]
     stralpha=listafilealpha[ii]
-    slip[ii],alpha[ii],BladeDesigndb= BladeDesign(sez,g,H,efficiency,rho,str,stralpha,Ns,ii,lsezioni[ii])
+    slip[ii],alpha[ii],BladeDesigndb= BladeDesign(sez,Costantidb['g'],Inputdb['H'],Inputdb['efficiency'],Costantidb['rho'],str,stralpha,OperatingPointdb['Ns'],ii,lsezioni[ii])
 
 
-thomacr,thoma,zsc,zscmax= Drafttube(Q,H,Ns,De,rho,g)
+thomacr,thoma,zsc,zscmax= Drafttube(Inputdb['Q'],Inputdb['H'],OperatingPointdb['Ns'],CanaleMeridianodb['De'],Costantidb['rho'],Costantidb['g'])

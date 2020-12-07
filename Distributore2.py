@@ -14,4 +14,4 @@ def Distributore2(H, g, Q, chord,De):
             'Cr1': Cr1}
     Distributoredb = pd.DataFrame(data, columns=['Dgv', 'AltezzaDistributore', 'Cr0', 'Cr1'], index=[0])
 
-    return(Cr0,Cr1,AltezzaDistributore,Dgv,Distributoredb)
+    return(Distributoredb)

@@ -20,4 +20,4 @@ def CanaleMeridiano(H, N, efficiency):
             'chord': chord}
     CanaleMeridianodb = pd.DataFrame(data, columns=['Hn', 'K', 'De', 'tau', 'Di', 'A', 'chord'], index=[0])
 
-    return (K, De, tau, Di, A, chord,CanaleMeridianodb)
+    return (CanaleMeridianodb)

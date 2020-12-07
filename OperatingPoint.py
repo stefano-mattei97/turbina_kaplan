@@ -20,4 +20,4 @@ def OperatingPoint( f, Np, rho, Q, g, H, efficiency):
     OperatingPointdb = pd.DataFrame(data, columns=['N','Omega','P','Ns','Nsd','Omegas','Z'],index=[0])
 
 
-    return(N, omega, P, Ns, Nsd, omegas, Z,OperatingPointdb)
+    return(OperatingPointdb)
