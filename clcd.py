@@ -33,5 +33,6 @@ def clcd (Rer):
     plt.plot(alphamax, ClMax, marker='o', color='black')
     plt.legend(['Cl', 'Cd','MaxCl'], prop={'size': 8}, loc='upper left')
     plt.show()
-
-    return(alphamax)
+    data = {'alphamax': alphamax}
+    clcddb = pd.DataFrame(data, columns=['alphamax'], index=[0])
+    return(alphamax,clcddb)

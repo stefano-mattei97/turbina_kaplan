@@ -20,19 +20,29 @@ Q = 48.11                          #[m^3/s]
 H = 15
 Np = 40                           #numero poli con moltiplicatore
 efficiency = 0.85
+data0 = {'Q': Q,
+         'H': H,
+         'Np': Np,
+         'efficiency':efficiency
+         }
+Inputdb = pd.DataFrame(data0, columns=['Q', 'H', 'Np','efficiency'],index=[0])
 
 
 #COSTANTI
 f = 50
 rho = 998
 g = 9.81
-
+data00 = {'f': f,
+         'rho': rho,
+         'g': g,
+         }
+Costantidb = pd.DataFrame(data00, columns=['f','rho','g'],index=[0])
 
 #OPERATING POINT
-N,omega,P,Ns,Nsd,omegas,Z = OperatingPoint(f, Np, rho, Q, g, H, efficiency)
+N,omega,P,Ns,Nsd,omegas,Z,OperatingPointdb = OperatingPoint(f,Np,rho,Q,g,H,efficiency)
 
 #CANALE MERIDIANO
-K,De,tau,Di,A,chord = CanaleMeridiano(H,N,efficiency)
+K,De,tau,Di,A,chord,CanaleMeridianodb = CanaleMeridiano(H,N,efficiency)
 
 
 
@@ -46,41 +56,39 @@ for jj in range(len(sezioni)):
     TriangoliVelocita(girsez,sezioni[jj])
 PlotVariabili(Database)
 
+
+
 #DISTRIBUTORE
 #Dgv,Vgv,Cr1,Re,Kug,Kfg,Cr0,AltezzaDistributore = Distributore(H, g, N, Q, P, chord)
-Re,C0,Cr1,AltezzaDistributore,Dgv = Distributore2(H, g, Q, chord,De)
-
+Cr0,Cr1,AltezzaDistributore,Dgv,Distributoredb = Distributore2(H, g, Q, chord,De)
 #CANALE TOROIDALE
-Cut, Delta= CanaleToroidale(Di,De,Dgv,Cu1)
-C1=(Cr1**2+Cut**2)**0.5
-print('La C1 è:',C1)
+Cut, Delta,CanaleToroidaledb= CanaleToroidale(Di,De,Dgv,Cu1)
+
+
 #XFOIL
-alphamax = clcd(Re)
+C1=(Cr1**2+Cut**2)**0.5
+Re=(C1*chord)/(1.05e-6)
+alphamax,clcddb = clcd(Re)
 
 #TRIANGOLI DI VELOCITA' DISTRIBUTORE
 alpha0 = math.radians(alphamax)
-Cr0=C0*np.cos(alpha0)
 alpha1d = (np.arctan(Cut / Cr1)) / (2 * 3.14) * 360
 deflessione = alpha1d - alphamax
 for kk in range(len(sezioni)):
-    TriangoliVelocitaDistributore2(Cr1, Cut, sezioni[kk], chord, alphamax,C0)
+    TriangoliVelocitaDistributore2(Cr1, Cut, sezioni[kk], chord, alphamax,Cr0)
 
 #BLADE DESIGN
 slip=np.zeros(5)
 alpha=np.zeros(5)
-listafilecdcl = ['444_CL_CD.txt','432_CL_CD.txt','410_CL_CD.txt','423_CL_CD.txt','444_CL_CD.txt']
-listafilealpha = ['430_CL_alpha.txt','430_CL_alpha.txt','410_CL_alpha.txt','423_CL_alpha.txt','444_CL_alpha.txt']
-#lsezioni = [0,0,0,0,0]
-#for ii in range(len(listafilecdcl)):
-    #sez=Database.iloc[lsezioni[ii]]
-    #str = listafilecdcl[ii]
-    #stralpha=listafilealpha[ii]
-    #slip[ii],alpha[ii],slipp= BladeDesign(sez,g,H,efficiency,rho,str,stralpha,Ns,0)
-ii=2
-lsezioni = [0,3,5,7,10]
-sez=Database.iloc[lsezioni[ii]]
-str = listafilecdcl[ii]
-stralpha=listafilealpha[ii]
-slip[ii],alpha[ii],slipp= BladeDesign(sez,g,H,efficiency,rho,str,stralpha,Ns,2)
+BladeDesigndb=[]
+listafilecdcl = ['432_CL_CD.txt','432_CL_CD.txt','410_CL_CD.txt','423_CL_CD.txt','444_CL_CD.txt']
+listafilealpha = ['432_CL_alpha.txt','432_CL_alpha.txt','410_CL_alpha.txt','423_CL_alpha.txt','444_CL_alpha.txt']
+lsezioni = [0,2,5,8,10]
+for ii in range(len(listafilecdcl)):
+    sez=Database.iloc[lsezioni[ii]]
+    str = listafilecdcl[ii]
+    stralpha=listafilealpha[ii]
+    slip[ii],alpha[ii],BladeDesigndb= BladeDesign(sez,g,H,efficiency,rho,str,stralpha,Ns,ii,lsezioni[ii])
+
 
 thomacr,thoma,zsc,zscmax= Drafttube(Q,H,Ns,De,rho,g)

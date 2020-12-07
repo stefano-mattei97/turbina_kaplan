@@ -6,7 +6,7 @@ from Girante import Girante
 
 
 
-def BladeDesign (dato,g,H,efficiency,rho,str,stralpha,Ns,plot):
+def BladeDesign (dato,g,H,efficiency,rho,str,stralpha,Ns,plot,lsezioni):
 
 
     C3 = 2                                                   #[m/s]  hip:pag 291 'Macchine Idrauliche' [1.5-2]
@@ -48,7 +48,7 @@ def BladeDesign (dato,g,H,efficiency,rho,str,stralpha,Ns,plot):
     cl = (dato['W2']**2 - Wm**2 + (2 * g * (patm - Hs - pmin - etas * ((dato['C2']**2 - C3**2)/(2*g))))) / (K * Wm**2)
 
     #step2 : stima slip angle [2.5°-3°]
-    slipcorretto=0                                      #valore dello slip corretto
+    Slipc=0                                      #valore dello slip corretto
     sliptru=np.zeros(len(slip))                         #valore slip di confronto
     liftratio=np.zeros(len(slip))
     CL=np.zeros(len(slip))
@@ -75,7 +75,7 @@ def BladeDesign (dato,g,H,efficiency,rho,str,stralpha,Ns,plot):
         #step6  calcolo angolo di slip
         delta[j] = abs(slip[j] - sliptru[j])
         if delta[j]<deltatest:
-            slipcorretto=slip[j]
+            Slipc=slip[j]
             deltatest=delta[j]
             n=j
 
@@ -83,5 +83,29 @@ def BladeDesign (dato,g,H,efficiency,rho,str,stralpha,Ns,plot):
     dataalpha = pd.read_csv(stralpha, delim_whitespace=True)
     alpha = np.interp(CL[n], dataalpha['CL'], dataalpha['alpha'])
 
+    data = {'C3': C3,
+            'Wm': Wm,
+            'Wmu': Wmu,
+            'patm':patm,
+            'Patm':Patm,
+            'Pv':Pv,
+            'pmin':pmin,
+            'K':K,
+            'etas':etas,
+            'betam':betam,
+            'Hn':Hn,
+            'Nqe': Nqe,
+            'thoma':thoma,
+            'Hs':Hs,
+            'Slipc':Slipc,
+            'alpha':alpha,
+            'chordtopitch':chordtopitch[n],
+            'pitchtochord':pitchtochord[n],
+            'CD':CD[n],
+            'CL':CL[n]}
 
-    return(slipcorretto,alpha,sliptru)
+    BladeDesigndb = pd.DataFrame(data,columns=['C3', 'Wm', 'Wmu','patm','Patm','Pv','pmin','K','etas',
+                                                'betam','Hn','Nqe','thoma','Hs','Slipc','alpha','chordtopitch',
+                                                'pitchtochord','CD','CL'],index=[lsezioni])
+
+    return(Slipc,alpha,BladeDesigndb)

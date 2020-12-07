@@ -11,4 +11,13 @@ def CanaleMeridiano(H, N, efficiency):
     Di = (0.25 + (0.0951 / K)) * De                       # diametro hub [m]
     A = 0.13 * De                                         # larghezza canale meridiano [m]
     chord = (De - Di)/4                                   # corda distributore
-    return (K, De, tau, Di, A, chord)
+    data = {'Hn': Hn,
+            'K': K,
+            'De': De,
+            'tau': tau,
+            'Di':Di ,
+            'A': A,
+            'chord': chord}
+    CanaleMeridianodb = pd.DataFrame(data, columns=['Hn', 'K', 'De', 'tau', 'Di', 'A', 'chord'], index=[0])
+
+    return (K, De, tau, Di, A, chord,CanaleMeridianodb)

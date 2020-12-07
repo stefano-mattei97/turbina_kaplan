@@ -3,17 +3,18 @@ import numpy as np
 import math
 
 
-def TriangoliVelocitaDistributore2 (Cr1, Cut,step,chord,alphamax,C0):
+def TriangoliVelocitaDistributore2 (Cr1, Cut,step,chord,alphamax,Cr0):
 
     plt.figure()
+    scala=25
     ax = plt.subplot(111)
     ax.set_aspect(1)
-    chord = 25 * chord
+    chord = scala * chord
     # plot velocità
 
     alpha0 = math.radians(alphamax)
-    Vgt = C0*np.sin(alpha0)
-    Vgx = C0*np.cos(alpha0)
+    Vgt = Cr0*np.tan(alpha0)
+    Vgx = Cr0
     ax.arrow(Vgt, Vgx, -Vgt, -Vgx, length_includes_head=True, width=0.15, facecolor='y')
     ax.arrow(0, -chord, Cut[step], -Cr1, length_includes_head=True, width=0.15, facecolor='b')
 

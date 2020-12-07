@@ -1,4 +1,5 @@
 import math
+import pandas as pd
 
 def OperatingPoint( f, Np, rho, Q, g, H, efficiency):
 
@@ -9,4 +10,14 @@ def OperatingPoint( f, Np, rho, Q, g, H, efficiency):
     Nsd = (N * (P / 1000) ** 0.5) / (H ** 1.25)                     # numero di giri dimensionale : 400<Nsd<900
     omegas = omega * (Q ** 0.5) / ((g * H) ** (3 / 4))              # velocità specifica
     Z = 5                                                           # pale runner
-    return(N, omega, P, Ns, Nsd, omegas, Z)
+    data = {'N': N,
+            'Omega': omega,
+            'P': P,
+            'Ns': Ns,
+            'Nsd': Nsd,
+            'Omegas': omegas,
+            'Z': Z}
+    OperatingPointdb = pd.DataFrame(data, columns=['N','Omega','P','Ns','Nsd','Omegas','Z'],index=[0])
+
+
+    return(N, omega, P, Ns, Nsd, omegas, Z,OperatingPointdb)

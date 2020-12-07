@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 
 
 
@@ -13,6 +14,11 @@ def CanaleToroidale(Di, De,Dgv, Cu1):
     for i in range (step):
         Cut[i] = Cu1[(step-1)-i] * R[(step-1)-i]/(Dgv/2)
         Delta[i] = Cut[i]-Cu1[(step-1)-i]
-    return(Cut,Delta)
+    data = {'R': R,
+            'Cut': Cut,
+            'Delta': Delta}
+    CanaleToroidaledb = pd.DataFrame(data, columns=['R', 'Cut', 'Delta'])
+
+    return(Cut,Delta,CanaleToroidaledb)
 
 
