@@ -1,14 +1,14 @@
 import numpy as np
 import pandas as pd
 
-def Girante(g, H, omega, Q, Di, De):
+def Girante(g, H, omega, Q, Di, De, rho):
     We = g * H                                         # lavoro di Eulero
 
     step = 11
     mid = 5
 
 
-    r = np.linspace(Di, De, step, endpoint=True)
+    r = np.linspace(Di/2, De/2, step, endpoint=True)
     rNorm=np.linspace(0, 100, step, endpoint=True, dtype='int16')
     U = omega * r                                       # blade speed
     phi = Q / (omega * (2 * r) ** 3)                    # flow coefficient
@@ -49,6 +49,8 @@ def Girante(g, H, omega, Q, Di, De):
 
     WE = U*(Cu1 - Cu2)
 
+
+
     data = {'R%': rNorm,
             'U': U,
             'Cm': Cm,
@@ -64,6 +66,7 @@ def Girante(g, H, omega, Q, Di, De):
             'beta1': beta1,
             'beta2': beta2,
             'alpha1': alpha1,
-            'alpha2': alpha2}
+            'alpha2': alpha2
+            }
     Database = pd.DataFrame(data, columns=['R%','U', 'Wu1', 'W1', 'Wu2', 'W2', 'Cm', 'Cu1', 'Cu2', 'C1', 'C2', 'WE', 'beta1', 'beta2', 'alpha1', 'alpha2'])
-    return(Database,Cu1)
+    return(Database,Cu1,WE,r)

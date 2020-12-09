@@ -1,11 +1,11 @@
 import numpy as np
 import pandas as pd
 import math
-from TriangoliVelocitaDistributore import TriangoliVelocitaDistributore
+
 
 def Distributore2(H, g, Q, chord,De):
     Dgv = 1.1 * De
-    AltezzaDistributore = 0.5
+    AltezzaDistributore = 0.28
     Cr0 = Q/(Dgv+2*chord)/math.pi/AltezzaDistributore
     Cr1 = Q/AltezzaDistributore/math.pi/Dgv
     data = {'Dgv': Dgv,
