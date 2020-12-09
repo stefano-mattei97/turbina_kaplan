@@ -96,7 +96,7 @@ Bladedesigndb = pd.DataFrame(data=None, columns=['C3', 'Wm', 'Wmu','patm','Patm'
 #dataf=pd.concat([dataf,data2],axis=0)
 
 
-listafilecdcl = ['432_CL_CD.txt','432_CL_CD.txt','410_CL_CD.txt','423_CL_CD.txt','444_CL_CD.txt']
+listafilecdcl = ['423_CL_CD.txt','432_CL_CD.txt','423_CL_CD.txt','423_CL_CD.txt','444_CL_CD.txt']
 listafilealpha = ['432_CL_alpha.txt','432_CL_alpha.txt','410_CL_alpha.txt','423_CL_alpha.txt','444_CL_alpha.txt']
 lsezioni = [0,2,5,7,10]
 for ii in range(len(listafilecdcl)):

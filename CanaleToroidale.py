@@ -8,7 +8,7 @@ def CanaleToroidale(Di, De,Dgv, Cu1):
     B = 0.2 * De
     step = 11
 
-    R = np.linspace(Di, De, step, endpoint=True)
+    R = np.linspace(Di/2, De/2, step, endpoint=True)
     Cut= np.zeros(step)
     Delta = np.zeros(step)
     for i in range (step):

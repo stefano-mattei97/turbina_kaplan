@@ -9,16 +9,16 @@ from Girante import Girante
 def BladeDesign (dato,g,H,efficiency,rho,str,stralpha,Ns,plot,lsezioni):
 
 
-    C3 = 2                                                   #[m/s]  hip:pag 291 'Macchine Idrauliche' [1.5-2]
+    C3 = 1.5                                                  #[m/s]  hip:pag 291 'Macchine Idrauliche' [1.5-2]
     Wm = (dato['W1'] +dato['W2'])/2
     Wmu = (dato['Wu1'] + dato['Wu2'])/2
     patm = 10.34528                                           #[m]
     Patm = 101324                                             #[Pa]
     Pv= 2985.7                                                #[Pa] pressione di vapore a T=24° (Rogers-Mayhew)
     pmin = 2.5                                               # pressione minima acqua [2-2.5] [m]
-    K = 3                                                   # numero caratteristico del profilo [2.6-3]
+    K = 4                                                   # numero caratteristico del profilo [2.6-3]
     etas = 0.91                                              # efficienza di scambio energetico [0.88-0.91]
-    betam = 90 + math.degrees(np.arctan(Wmu/dato['Cm']))      # rispetto alla direzione periferica in gradi
+    betam = 90+math.degrees(np.arctan(Wmu/dato['Cm']))      # rispetto alla direzione periferica in gradi
 
     #step0 : Cavitazione
 
@@ -59,10 +59,7 @@ def BladeDesign (dato,g,H,efficiency,rho,str,stralpha,Ns,plot,lsezioni):
     deltatest = 99
     delta = np.zeros(len(slip))
 
-    #dataf = pd.DataFrame(data=None, columns=['A','B'])
-    #dentro il ciclo
-    #data2
-    #dataf=pd.concat([dataf,data2],axis=0)
+
     for j in range(len(slip)) :
         chordtopitch[j] = (g * efficiency * H * dato['Cm'] * np.cos(math.radians(slip[j]))) / (Wm**2 * dato['U'] * cl * np.sin(math.radians(betam - slip[j])))
         data = pd.read_csv('liftratio.txt', delim_whitespace=True)
@@ -116,5 +113,9 @@ def BladeDesign (dato,g,H,efficiency,rho,str,stralpha,Ns,plot,lsezioni):
     print('Valori Slip calcolati per la sezione:',lsezioni)
     print('sono:')
     print(sliptru)
+    print('Valori CL calcolati per la sezione:', lsezioni)
+    print('sono:')
+    print(CL)
+
 
     return(Slipc,alpha,BladeDesigndb)
