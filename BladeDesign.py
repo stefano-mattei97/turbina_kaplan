@@ -110,8 +110,8 @@ def BladeDesign (dato,g,H,efficiency,rho,str,stralpha,Ns,plot,lsezioni):
             'CL':CL[n]}
 
     BladeDesigndb = pd.DataFrame(data,columns=['C3', 'Wm', 'Wmu','patm','Patm','Pv','pmin','K','etas',
-                                                'betam','Hn','Nqe','thoma','Hs','Slipc','alpha','chordtopitch',
-                                                'pitchtochord','CD','CL'],index=[lsezioni])
+                                               'betam','Hn','Nqe','thoma','Hs','Slipc','alpha','chordtopitch',
+                                              'pitchtochord','CD','CL'],index=[lsezioni])
 
     print('Valori Slip calcolati per la sezione:',lsezioni)
     print('sono:')

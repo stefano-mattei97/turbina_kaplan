@@ -92,7 +92,13 @@ for kk in range(len(sezioni)):
 #BLADE DESIGN
 slip=np.zeros(5)
 alpha=np.zeros(5)
-BladeDesigndb=[]
+Bladedesigndb = pd.DataFrame(data=None, columns=['C3', 'Wm', 'Wmu','patm','Patm','Pv','pmin','K','etas',
+                                                'betam','Hn','Nqe','thoma','Hs','Slipc','alpha','chordtopitch',
+                                                'pitchtochord','CD','CL'])
+
+#dataf=pd.concat([dataf,data2],axis=0)
+
+
 listafilecdcl = ['432_CL_CD.txt','432_CL_CD.txt','410_CL_CD.txt','423_CL_CD.txt','444_CL_CD.txt']
 listafilealpha = ['432_CL_alpha.txt','432_CL_alpha.txt','410_CL_alpha.txt','423_CL_alpha.txt','444_CL_alpha.txt']
 lsezioni = [0,2,5,7,10]
@@ -100,7 +106,7 @@ for ii in range(len(listafilecdcl)):
     sez=Database.iloc[lsezioni[ii]]
     str = listafilecdcl[ii]
     stralpha=listafilealpha[ii]
-    slip[ii],alpha[ii],BladeDesigndb= BladeDesign(sez,Costantidb['g'],Inputdb['H'],Inputdb['efficiency'],Costantidb['rho'],str,stralpha,OperatingPointdb['Ns'],ii,lsezioni[ii])
-
+    slip[ii],alpha[ii],data01= BladeDesign(sez,Costantidb['g'],Inputdb['H'],Inputdb['efficiency'],Costantidb['rho'],str,stralpha,OperatingPointdb['Ns'],ii,lsezioni[ii])
+    Bladedesigndb = pd.concat([Bladedesigndb, data01], axis=0)
 
 Drafttubedb= Drafttube(Inputdb['Q'],Inputdb['H'],OperatingPointdb['Ns'],CanaleMeridianodb['De'],Costantidb['rho'],Costantidb['g'])
