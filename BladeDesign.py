@@ -44,7 +44,7 @@ def BladeDesign (dato,g,H,efficiency,rho,str,stralpha,Ns,plot,lsezioni):
 
     #step1 : calcolo coefficiente di lift per ogni raggio cl
 
-    slip = np.linspace(2.5, 3, 50)               #stima dei valori dello slip
+    slip = np.linspace(1.5, 4, 100)               #stima dei valori dello slip
     cl = (dato['W2']**2 - Wm**2 + (2 * g * (patm - Hs - pmin - etas * ((dato['C2']**2 - C3**2)/(2*g))))) / (K * Wm**2)
 
     #step2 : stima slip angle [2.5°-3°]
@@ -58,6 +58,11 @@ def BladeDesign (dato,g,H,efficiency,rho,str,stralpha,Ns,plot,lsezioni):
     j=0
     deltatest = 99
     delta = np.zeros(len(slip))
+
+    #dataf = pd.DataFrame(data=None, columns=['A','B'])
+    #dentro il ciclo
+    #data2
+    #dataf=pd.concat([dataf,data2],axis=0)
     for j in range(len(slip)) :
         chordtopitch[j] = (g * efficiency * H * dato['Cm'] * np.cos(math.radians(slip[j]))) / (Wm**2 * dato['U'] * cl * np.sin(math.radians(betam - slip[j])))
         data = pd.read_csv('liftratio.txt', delim_whitespace=True)
