@@ -1,9 +1,11 @@
 import numpy as np
 import pandas as pd
 
+
 def Prestazioni (WE, Q, rho, g, omega, H, C1d, C0d, Cu1, Di, r):
 
-    torque = Q * rho * Cu1 * r
+    torque=Q*rho*Cu1*r
+
 
     shaft_power = torque * omega
 
