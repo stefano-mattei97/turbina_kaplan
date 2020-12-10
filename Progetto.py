@@ -107,9 +107,9 @@ for ii in range(len(listafilecdcl)):
 '''
 #DRAFTUBE
 Drafttubedb= Drafttube(Inputdb['Q'],Inputdb['H'],OperatingPointdb['Ns'],CanaleMeridianodb['De'],Costantidb['rho'],Costantidb['g'])
-
+Drafttubedb=Drafttubedb.iloc[0]
 #PRESTAZIONI
-#Prestazionidb = Prestazioni(WE,Q, rho, g, OperatingPointdb['Omega'], H, C1d, C0d, Cu1, r, CanaleMeridianodb['Di'])
+Prestazionidb = Prestazioni(WE,Drafttubedb['He'],Q, rho, g, OperatingPointdb['Omega'], H, C1d, C0d, Cu1, r)
 
 #Blade Design
 Bladedesigndb = pd.DataFrame(data=None, columns=['CL','CD','AoA'])
