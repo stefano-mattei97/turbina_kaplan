@@ -72,9 +72,8 @@ def BladeDesign2 (dato,g,H,efficiency,rho,Ns,lsezioni,Z,Di,str1,str2):
     data3 = {'CL':Xfoildb['CL'],
             'CD': Xfoildb['CD'],
             'AoA': Xfoildb['AoA'],
-            'chord':chord
              }
-    Bladedesigndb = pd.DataFrame(data3, columns=['CL', 'CD', 'AoA','chord'])
+    Bladedesigndb = pd.DataFrame(data3, columns=['CL', 'CD', 'AoA'])
     b=Bladedesigndb.iloc[kk]
     return (b)
 

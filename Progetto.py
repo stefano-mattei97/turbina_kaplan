@@ -25,7 +25,7 @@ efficiency = 0.85                 #efficienza idraulica stimata
 data0 = {'Q': Q,
          'H': H,
          'Np': Np,
-         'efficiency': efficiency
+         'efficiency':efficiency
          }
 Inputdb1 = pd.DataFrame(data0, columns=['Q', 'H', 'Np','efficiency'],index=[0])
 Inputdb = Inputdb1.iloc[0]
@@ -109,7 +109,7 @@ for ii in range(len(listafilecdcl)):
 Drafttubedb= Drafttube(Inputdb['Q'],Inputdb['H'],OperatingPointdb['Ns'],CanaleMeridianodb['De'],Costantidb['rho'],Costantidb['g'])
 
 #PRESTAZIONI
-Prestazionidb = Prestazioni (WE, Q, rho, g, OperatingPointdb['Omega'], H, C1d, C0d, Cu1, CanaleMeridianodb['Di'], r)
+#Prestazionidb = Prestazioni (WE, Q, rho, g, OperatingPointdb['Omega'], H, C1d, C0d, Cu1, r, CanaleMeridianodb['Di'])
 
 #Blade Design
 Bladedesigndb = pd.DataFrame(data=None, columns=['CL','CD','AoA','chord'])
