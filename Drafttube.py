@@ -8,7 +8,7 @@ def Drafttube(Q,H,Ns,De,rho,g):
 
     #COSTANTI
     data2 = pd.read_csv('diagrammadiMoody.txt', delim_whitespace=True)
-    c3 = 1.5                                                #velocità acqua uscita dal diffusore nota per il draft-tube scelto[m/s] tra 1.5 - 2.0
+    c3 = 2                                                #velocità acqua uscita dal diffusore nota per il draft-tube scelto[m/s] tra 1.5 - 2.0
     patm = 101300                                           #[Pascal]
     pv = 2985.7                                             #tensione di vapore a T=24°C dalla tabella Rogers e Mayhew [Pascal]
     data2 = pd.read_csv('diagrammadiMoody.txt', delim_whitespace=True)

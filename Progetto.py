@@ -14,6 +14,7 @@ from clcd import clcd
 from BladeDesign import BladeDesign
 from Drafttube import Drafttube
 from Prestazioni import Prestazioni
+from BladeDesign2 import BladeDesign2
 
 
 #INPUT
@@ -87,15 +88,13 @@ for kk in range(len(sezioni)):
     TriangoliVelocitaDistributore2(Distributoredb['Cr1'], Cut, sezioni[kk], CanaleMeridianodb['chord'], alphamax,Distributoredb['Cr0'])
 
 #BLADE DESIGN
-slip=np.zeros(5)
-alpha=np.zeros(5)
-Bladedesigndb = pd.DataFrame(data=None, columns=['C3', 'Wm', 'Wmu','patm','Patm','Pv','pmin','K','etas',
-                                                'betam','Hn','Nqe','thoma','Hs','Slipc','alpha','chordtopitch',
-                                                'pitchtochord','CD','CL'])
+#Bladedesigndb = pd.DataFrame(data=None, columns=['C3', 'Wm', 'Wmu','patm','Patm','Pv','pmin','K','etas',
+#                                                'betam','Hn','Nqe','thoma','Hs','Slipc','alpha','chordtopitch',
+#                                                'pitchtochord','CD','CL'])
 
 #dataf=pd.concat([dataf,data2],axis=0)
 
-
+'''
 listafilecdcl = ['423_CL_CD.txt','432_CL_CD.txt','423_CL_CD.txt','423_CL_CD.txt','444_CL_CD.txt']
 listafilealpha = ['432_CL_alpha.txt','432_CL_alpha.txt','410_CL_alpha.txt','423_CL_alpha.txt','444_CL_alpha.txt']
 lsezioni = [0,2,5,7,10]
@@ -105,9 +104,23 @@ for ii in range(len(listafilecdcl)):
     stralpha=listafilealpha[ii]
     slip[ii],alpha[ii],data01= BladeDesign(sez,Costantidb['g'],Inputdb['H'],Inputdb['efficiency'],Costantidb['rho'],str,stralpha,OperatingPointdb['Ns'],ii,lsezioni[ii])
     Bladedesigndb = pd.concat([Bladedesigndb, data01], axis=0)
-
+'''
 #DRAFTUBE
 Drafttubedb= Drafttube(Inputdb['Q'],Inputdb['H'],OperatingPointdb['Ns'],CanaleMeridianodb['De'],Costantidb['rho'],Costantidb['g'])
 
 #PRESTAZIONI
-Prestazionidb = Prestazioni (WE, Q, rho, g, OperatingPointdb['Omega'], H, C1d, C0d, Cu1, r, CanaleMeridianodb['Di'])
+#Prestazionidb = Prestazioni (WE, Q, rho, g, OperatingPointdb['Omega'], H, C1d, C0d, Cu1, r, CanaleMeridianodb['Di'])
+
+#Blade Design
+Bladedesigndb = pd.DataFrame(data=None, columns=['CL','CD','AoA','chord'])
+lsezioni = [0,2,5,8,10]
+str=['4424','4424','6410','6410','6410']
+str2=['polarNaca4424','polarNaca4424','polarNaca6410','polarNaca6410','polarNaca6410']
+for jj in range(len(lsezioni)):
+    sez=Database.iloc[lsezioni[jj]]
+    DFrame=BladeDesign2(sez,g,H,efficiency,rho,OperatingPointdb['Ns'],lsezioni,OperatingPointdb['Z'],CanaleMeridianodb['Di'],str[jj],str2[jj])
+    Bladedesigndb = pd.concat([Bladedesigndb, DFrame],axis=0)
+
+
+
+

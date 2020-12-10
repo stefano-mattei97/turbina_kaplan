@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from scipy.interpolate import interp1d
 
 
-def callXF(NACA, NNodes, Re, iter, inputFile, nacaFile, polarFile, AoAmin, AoAmax, AoAdelta):
+def callXFBD(NACA, NNodes, Re, iter, inputFile, nacaFile, polarFile, AoAmin, AoAmax, AoAdelta):
     if os.path.exists(inputFile):
         os.remove(inputFile)
     if os.path.exists(polarFile):
@@ -36,19 +36,11 @@ def callXF(NACA, NNodes, Re, iter, inputFile, nacaFile, polarFile, AoAmin, AoAma
     os.system(command)
 
     df = pd.read_csv(polarFile, skiprows=11, sep="\s+")
-    df.columns = ["AoA", "CL", "CD", "CDp", "CM", "Top_Xtr", "Bot_Xtr"]
+    df.columns = ["AoA", "CL", "CD","CDp", "CM", "Top_Xtr", "Bot_Xtr"]
     pf = polarFile + '.csv'
     df.to_csv(polarFile)
 
-    #plt.plot(df['CDp'], df['CL'])
-    #plt.show()
-    #plt.close()
-    #plt.plot(df['AoA'], df['CDp'])
-    #plt.show()
-    #plt.close()
-
-    clpolar = interp1d(df['AoA'], df['CL'], kind='cubic')
-    cdpolar = interp1d(df['AoA'], df['CD'], kind='cubic')
-    return clpolar, cdpolar
-
-
+    #clpolar = interp1d(df['AoA'], df['CL'], kind='cubic')
+    #cdpolar = interp1d(df['AoA'], df['CD'], kind='cubic')
+    #CDr = interp1d(df['CD'], df['CL'], kind='cubic')
+    return df
