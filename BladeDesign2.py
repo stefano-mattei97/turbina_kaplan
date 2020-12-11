@@ -57,6 +57,7 @@ def BladeDesign2 (dato,g,H,efficiency,rho,Ns,lsezioni,Z,Di,str1,str2):
     CL = cl / liftratio
     CLd=np.zeros(len(Xfoildb['CL']))
     CDd = np.zeros(len(CLd))
+    AoA = np.zeros(len(CLd))
     CLd=Xfoildb['CL']
     CDd=Xfoildb['CD']
     xdelta=100
@@ -69,14 +70,16 @@ def BladeDesign2 (dato,g,H,efficiency,rho,Ns,lsezioni,Z,Di,str1,str2):
     Xfoildb['CL']=CLd
     Xfoildb['CD']=CDd
     Xfoildb=Xfoildb.interpolate()
-    data3 = {'CL':Xfoildb['CL'],
-            'CD': Xfoildb['CD'],
-            'AoA': Xfoildb['AoA'],
+    CLd=Xfoildb['CL']
+    CDd=Xfoildb['CD']
+    AoA=Xfoildb['AoA']
+    data3 = {'CL':CLd[kk],
+            'CD': CDd[kk],
+            'AoA': AoA[kk]
              }
-    Bladedesigndb = pd.DataFrame(data3, columns=['CL', 'CD', 'AoA'])
-    b=Bladedesigndb.iloc[kk]
+    Bladedesigndb = pd.DataFrame(data3, columns=['CL', 'CD', 'AoA'],index=[0])
 
-    return (b)
+    return (Bladedesigndb)
 
 
 

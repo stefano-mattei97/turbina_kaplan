@@ -114,16 +114,15 @@ Prestazionidb = Prestazioni(WE,Drafttubedb['He'],Q, rho, g, OperatingPointdb['Om
 #Blade Design
 Bladedesigndb = pd.DataFrame(data=None, columns=['CL','CD','AoA'])
 lsezioni = [0,2,5,8,10]
-str=['4424','4424','6410','6410','6410']
-str2=['polarNaca4424','polarNaca4424','polarNaca6410','polarNaca6410','polarNaca6410']
+str=['6424','6424','6410','6410','6410']
+str2=['polarNaca6424','polarNaca6424','polarNaca6410','polarNaca6410','polarNaca6410']
 for jj in range(len(lsezioni)):
     sez=Database.iloc[lsezioni[jj]]
     DFrame=BladeDesign2(sez,g,H,efficiency,rho,OperatingPointdb['Ns'],lsezioni,OperatingPointdb['Z'],CanaleMeridianodb['Di'],str[jj],str2[jj])
     Bladedesigndb = pd.concat([Bladedesigndb, DFrame],axis=0)
-plt.plot(Bladedesigndb['CL'],label='CL')
-plt.plot(Bladedesigndb['CD'],label='CD')
-plt.legend()
-
+plt.plot(lsezioni,Bladedesigndb['CD'],label='CD')
+plt.show()
+plt.plot(lsezioni,Bladedesigndb['CL'],label='CL')
 plt.show()
 
 
