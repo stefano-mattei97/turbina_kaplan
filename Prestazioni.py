@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-def Prestazioni (WE, Q, rho, g, omega, H, C1d, C0d, Cu1, Di, r):
+def Prestazioni (WE,He, Q, rho, g, omega, H, C1d, C0d, Cu1, r):
 
     torque = Q * rho * Cu1 * r
 
@@ -11,7 +11,7 @@ def Prestazioni (WE, Q, rho, g, omega, H, C1d, C0d, Cu1, Di, r):
 
     etam = shaft_power / runner_power          #efficienza meccanica
 
-    etah = (WE /g) / H                         #efficienza idraulica
+    etah = (He) / H                         #efficienza idraulica
 
     etao = etam * etah                         #efficienza totale
 

@@ -18,7 +18,7 @@ from BladeDesign2 import BladeDesign2
 
 
 #INPUT
-Q = 48.11                          #[m^3/s]
+Q = 48.11                            #[m^3/s]
 H = 15
 Np = 40                           #numero poli con moltiplicatore
 efficiency = 0.85                 #efficienza idraulica stimata
@@ -95,7 +95,7 @@ for kk in range(len(sezioni)):
 #dataf=pd.concat([dataf,data2],axis=0)
 
 '''
-listafilecdcl = ['423_CL_CD.txt','432_CL_CD.txt','423_CL_CD.txt','423_CL_CD.txt','444_CL_CD.txt']
+listafilecdcl = ['432_CL_CD.txt','432_CL_CD.txt','423_CL_CD.txt','423_CL_CD.txt','444_CL_CD.txt']
 listafilealpha = ['432_CL_alpha.txt','432_CL_alpha.txt','410_CL_alpha.txt','423_CL_alpha.txt','444_CL_alpha.txt']
 lsezioni = [0,2,5,7,10]
 for ii in range(len(listafilecdcl)):
@@ -107,12 +107,12 @@ for ii in range(len(listafilecdcl)):
 '''
 #DRAFTUBE
 Drafttubedb= Drafttube(Inputdb['Q'],Inputdb['H'],OperatingPointdb['Ns'],CanaleMeridianodb['De'],Costantidb['rho'],Costantidb['g'])
-
+Drafttubedb=Drafttubedb.iloc[0]
 #PRESTAZIONI
-#Prestazionidb = Prestazioni (WE, Q, rho, g, OperatingPointdb['Omega'], H, C1d, C0d, Cu1, r, CanaleMeridianodb['Di'])
+Prestazionidb = Prestazioni(WE,Drafttubedb['He'],Q, rho, g, OperatingPointdb['Omega'], H, C1d, C0d, Cu1, r)
 
 #Blade Design
-Bladedesigndb = pd.DataFrame(data=None, columns=['CL','CD','AoA','chord'])
+Bladedesigndb = pd.DataFrame(data=None, columns=['CL','CD','AoA'])
 lsezioni = [0,2,5,8,10]
 str=['4424','4424','6410','6410','6410']
 str2=['polarNaca4424','polarNaca4424','polarNaca6410','polarNaca6410','polarNaca6410']
@@ -120,7 +120,11 @@ for jj in range(len(lsezioni)):
     sez=Database.iloc[lsezioni[jj]]
     DFrame=BladeDesign2(sez,g,H,efficiency,rho,OperatingPointdb['Ns'],lsezioni,OperatingPointdb['Z'],CanaleMeridianodb['Di'],str[jj],str2[jj])
     Bladedesigndb = pd.concat([Bladedesigndb, DFrame],axis=0)
+plt.plot(Bladedesigndb['CL'],label='CL')
+plt.plot(Bladedesigndb['CD'],label='CD')
+plt.legend()
 
+plt.show()
 
 
 
