@@ -120,7 +120,11 @@ for jj in range(len(lsezioni)):
     sez=Database.iloc[lsezioni[jj]]
     DFrame=BladeDesign2(sez,g,H,efficiency,rho,OperatingPointdb['Ns'],lsezioni,OperatingPointdb['Z'],CanaleMeridianodb['Di'],str[jj],str2[jj])
     Bladedesigndb = pd.concat([Bladedesigndb, DFrame],axis=0)
+plt.plot(Bladedesigndb['CL'],label='CL')
+plt.plot(Bladedesigndb['CD'],label='CD')
+plt.legend()
 
+plt.show()
 
 
 
