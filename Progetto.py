@@ -121,11 +121,19 @@ for jj in range(len(lsezioni)):
                         str[jj],str2[jj],jj)
     Bladedesigndb = pd.concat([Bladedesigndb, DFrame],axis=0)
 plt.plot(lsezioni,Bladedesigndb['CD'],label='CD')
+plt.title('Andamento Coefficiente di Drag')
+plt.xlabel('CD')
+plt.ylabel('R%')
 plt.show()
 plt.plot(lsezioni,Bladedesigndb['CL'],label='CL')
+plt.title('Andamento Coefficiente di Lift')
+plt.xlabel('CL')
+plt.ylabel('R%')
 plt.show()
 
+'''
 #PRESTAZIONI
 Prestazionidb = Prestazioni(WE,Q,rho,OperatingPointdb['Omega'],Bladedesigndb['Wm'],Bladedesigndb['betam'],
                             Bladedesigndb['chord'],Bladedesigndb['CL'],Bladedesigndb['CD'],
                             CanaleMeridianodb['De'],CanaleMeridianodb['Di'])
+'''
