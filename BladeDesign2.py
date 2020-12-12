@@ -17,8 +17,8 @@ def BladeDesign2 (dato,g,H,efficiency,rho,Ns,lsezioni,Z,Di,str1,str2,plot):
     Patm = 101324                                             #[Pa]
     Pv= 2985.7                                                #[Pa] pressione di vapore a T=24° (Rogers-Mayhew)
     pmin = 2.5                                              # pressione minima acqua [2-2.5] [m]
-    K = 4                                                 # numero caratteristico del profilo [2.6-3]
-    etas = 0.91                                              # efficienza di scambio energetico [0.88-0.91]
+    K = 4                                                   # numero caratteristico del profilo [2.6-3]
+    etas = 0.91                                             # efficienza di scambio energetico [0.88-0.91]
     betam = 90+math.degrees(np.arctan(Wmu/dato['Cm']))      # rispetto alla direzione periferica in gradi
 
     #step0 : Cavitazione
