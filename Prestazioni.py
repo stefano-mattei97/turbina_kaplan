@@ -5,14 +5,16 @@ import math
 def Prestazioni (WE,Q,rho,omega, Wm, betam,chord, CL, CD ,De,Di):
     r=np.linspace(Di/2,De/2,len(Wm),endpoint=True)
     We=WE[0]
-    betam=betam*(2*math.pi)/360
+    betam=(betam-90)*(2*math.pi)/360
     L = 0.5 * rho * chord * CL * Wm**2
 
     D = 0.5 * rho * chord * CD * Wm**2
 
-    Ft = -L * np.cos(betam) + D * np.sin(betam)
+    Ft = L * np.cos(betam) + D * np.sin(betam)
 
-    WE_real = Ft * r * omega / (rho * Q)
+    FT = np.inner(Ft,r)
+
+    WE_real = FT * ((Di+De)/2) * omega/ rho * Q
 
     efficiency_real = WE_real / We
 
