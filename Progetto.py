@@ -118,7 +118,7 @@ str=['6424','6424','6410','6410','6410']
 str2=['polarNaca6424','polarNaca6424','polarNaca6410','polarNaca6410','polarNaca6410']
 for jj in range(len(lsezioni)):
     sez=Database.iloc[lsezioni[jj]]
-    DFrame=BladeDesign2(sez,g,H,efficiency,rho,OperatingPointdb['Ns'],lsezioni,OperatingPointdb['Z'],CanaleMeridianodb['Di'],str[jj],str2[jj])
+    DFrame=BladeDesign2(sez,g,H,efficiency,rho,OperatingPointdb['Ns'],lsezioni,OperatingPointdb['Z'],CanaleMeridianodb['Di'],str[jj],str2[jj],jj)
     Bladedesigndb = pd.concat([Bladedesigndb, DFrame],axis=0)
 plt.plot(lsezioni,Bladedesigndb['CD'],label='CD')
 plt.show()

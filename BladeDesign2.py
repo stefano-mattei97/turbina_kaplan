@@ -7,7 +7,7 @@ from Girante import Girante
 from XfoilBladeD import callXFBD
 
 
-def BladeDesign2 (dato,g,H,efficiency,rho,Ns,lsezioni,Z,Di,str1,str2):
+def BladeDesign2 (dato,g,H,efficiency,rho,Ns,lsezioni,Z,Di,str1,str2,plot):
 
 
     C3 = 2                                                  #[m/s]  hip:pag 291 'Macchine Idrauliche' [1.5-2]
@@ -29,6 +29,19 @@ def BladeDesign2 (dato,g,H,efficiency,rho,Ns,lsezioni,Z,Di,str1,str2):
     Hs = ((Patm - Pv)/(rho*g)) + ((C3**2)/(2*g)) - (thoma*Hn)      # Maximun Suction Head
 
 
+
+    if plot==2:
+        data2 = pd.read_csv('diagrammadiMoody.txt', delim_whitespace=True)
+        fig = plt.figure()
+        ax = plt.subplot(111)
+        plt.title('Diagramma di Moody')
+        ax.plot(data2['Ns'], data2['thoma'], color='k', ls='-')
+        plt.plot(Ns, thoma, marker='o', color='red')
+        ax.annotate('Zona Senza Cavitazione', (2,2),color='red')
+        ax.annotate('Zona con Cavitazione',(4,0.5),color='red')
+        ax.set_xlabel('Ns[rad]')
+        ax.set_ylabel('thoma')
+        plt.show()
     #step1 : calcolo coefficiente di lift per ogni raggio cl
 
     cl = (dato['W2']**2 - Wm**2 + (2 * g * (patm - Hs - pmin - etas * ((dato['C2']**2 - C3**2)/(2*g))))) / (K * Wm**2)

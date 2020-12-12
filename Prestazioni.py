@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-def Prestazioni (WE,He, Q, rho, g, omega, H, C1d, C0d, Cu1, r):
+def Prestazioni (WE,He, Q, rho, g, omega, H, Cu1, r, ):
 
     torque = Q * rho * Cu1 * r
 
