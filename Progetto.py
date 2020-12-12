@@ -108,8 +108,6 @@ for ii in range(len(listafilecdcl)):
 #DRAFTUBE
 Drafttubedb= Drafttube(Inputdb['Q'],Inputdb['H'],OperatingPointdb['Ns'],CanaleMeridianodb['De'],Costantidb['rho'],Costantidb['g'])
 Drafttubedb=Drafttubedb.iloc[0]
-#PRESTAZIONI
-Prestazionidb = Prestazioni(WE,Drafttubedb['He'],Q, rho, g, OperatingPointdb['Omega'], H, C1d, C0d, Cu1, r)
 
 #Blade Design
 Bladedesigndb = pd.DataFrame(data=None, columns=['CL','CD','AoA'])
@@ -118,12 +116,16 @@ str=['6424','6424','6410','6410','6410']
 str2=['polarNaca6424','polarNaca6424','polarNaca6410','polarNaca6410','polarNaca6410']
 for jj in range(len(lsezioni)):
     sez=Database.iloc[lsezioni[jj]]
-    DFrame=BladeDesign2(sez,g,H,efficiency,rho,OperatingPointdb['Ns'],lsezioni,OperatingPointdb['Z'],CanaleMeridianodb['Di'],str[jj],str2[jj],jj)
+    DFrame=BladeDesign2(sez,g,H,efficiency,rho,OperatingPointdb['Ns'],
+                        lsezioni,OperatingPointdb['Z'],CanaleMeridianodb['Di'],
+                        str[jj],str2[jj],jj)
     Bladedesigndb = pd.concat([Bladedesigndb, DFrame],axis=0)
 plt.plot(lsezioni,Bladedesigndb['CD'],label='CD')
 plt.show()
 plt.plot(lsezioni,Bladedesigndb['CL'],label='CL')
 plt.show()
 
-
-
+#PRESTAZIONI
+Prestazionidb = Prestazioni(WE,Q,rho,OperatingPointdb['Omega'],Bladedesigndb['Wm'],Bladedesigndb['betam'],
+                            Bladedesigndb['chord'],Bladedesigndb['CL'],Bladedesigndb['CD'],
+                            CanaleMeridianodb['De'],CanaleMeridianodb['Di'])
