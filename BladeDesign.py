@@ -30,10 +30,10 @@ def BladeDesign (dato,g,H,efficiency,rho,str,stralpha,Ns,plot,lsezioni):
     #Grafico C.Thoma
 
     if plot==2:
-        data2 = pd.read_csv('diagrammadiMoody.txt', delim_whitespace=True)
+        data2 = pd.read_csv('DiagrammadiMoody.txt', delim_whitespace=True)
         fig = plt.figure()
         ax = plt.subplot(111)
-        plt.title('Diagramma di Moody')
+        plt.title('Diagramma di Moody Rotore')
         ax.plot(data2['Ns'], data2['thoma'], color='k', ls='-')
         plt.plot(Ns, thoma, marker='o', color='red')
         ax.annotate('Zona Senza Cavitazione', (2,2),color='red')

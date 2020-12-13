@@ -76,7 +76,7 @@ def TriangoliVelocitaDistributore2 (Cr1, Cut,step,chord,alphamax,Cr0):
     if step == 5:
         plt.title('Triangoli velocità Distributore Midspan',)
     if step == 0:
-        plt.title('Triangoli velocità Distributore Hub',)
+        plt.title('Andamento velocità Distributore',)
     if step == 10:
         plt.title('Triangoli velocità Distributore Tip',)
 

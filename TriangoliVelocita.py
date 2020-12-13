@@ -11,7 +11,7 @@ def TriangoliVelocita(dato,sezione):
     ax.arrow(dato['U'], 0, -dato['Wu1'], dato['Cm'], length_includes_head=True, width=0.15, facecolor='g')
     ax.arrow(dato['U'], 0, -dato['Wu2'], dato['Cm'], length_includes_head=True, width=0.15, facecolor='r')
     ax.arrow(0, 0, dato['Cu2'], dato['Cm'], length_includes_head=True,label='Prova', width=0.15, facecolor='c')
-    plt.legend(['U','C1','W1','W2','C2'], prop={'size': 6}, loc='upper right')
+    plt.legend(['U','C1','W1','W2','C2'], prop={'size': 6}, loc='lower right')
     if sezione == 5:
         plt.title('Triangoli velocità Midspan',)
     if sezione == 0:

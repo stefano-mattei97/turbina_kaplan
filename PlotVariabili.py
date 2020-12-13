@@ -25,7 +25,7 @@ def PlotVariabili(dato):
     plt.plot(dato['Cu2'], dato['R%'])
     plt.plot(dato['C2'], dato['R%'])
     plt.plot(dato['W2'], dato['R%'])
-    plt.legend(['Cu1','C1','W1','Cu2','C2','W2'], prop={'size': 8}, loc='upper center')
+    plt.legend(['Cu1','C1','W1','Cu2','C2','W2'], prop={'size': 8}, loc='lower right')
     plt.show()
 
     fig3 = plt.figure()

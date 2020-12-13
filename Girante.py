@@ -49,6 +49,8 @@ def Girante(g, H, omega, Q, Di, De, rho):
 
     WE = U*(Cu1 - Cu2)
 
+    torque = rho * Q * Cu1 * r
+
 
 
     data = {'R%': rNorm,
@@ -66,7 +68,8 @@ def Girante(g, H, omega, Q, Di, De, rho):
             'beta1': beta1,
             'beta2': beta2,
             'alpha1': alpha1,
-            'alpha2': alpha2
+            'alpha2': alpha2,
+            'torque': torque
             }
-    Database = pd.DataFrame(data, columns=['R%','U', 'Wu1', 'W1', 'Wu2', 'W2', 'Cm', 'Cu1', 'Cu2', 'C1', 'C2', 'WE', 'beta1', 'beta2', 'alpha1', 'alpha2'])
+    Database = pd.DataFrame(data, columns=['R%','U', 'Wu1', 'W1', 'Wu2', 'W2', 'Cm', 'Cu1', 'Cu2', 'C1', 'C2', 'WE', 'beta1', 'beta2', 'alpha1', 'alpha2','torque'])
     return(Database,Cu1,WE,r)

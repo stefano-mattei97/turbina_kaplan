@@ -87,6 +87,7 @@ def BladeDesign2 (dato,g,H,efficiency,rho,Ns,lsezioni,Z,Di,str1,str2,plot):
     CDd=Xfoildb['CD']
     AoA=Xfoildb['AoA']
     data3 = {'CL':CLd[kk],
+             'cl':cl,
             'CD': CDd[kk],
             'AoA': AoA[kk],
             'chord':chord,
@@ -94,7 +95,7 @@ def BladeDesign2 (dato,g,H,efficiency,rho,Ns,lsezioni,Z,Di,str1,str2,plot):
             'Wm':Wm,
             'betam':betam
              }
-    Bladedesigndb = pd.DataFrame(data3, columns=['CL', 'CD', 'AoA','chord','t','Wm','betam'],index=[0])
+    Bladedesigndb = pd.DataFrame(data3, columns=['CL','cl', 'CD', 'AoA','chord','t','Wm','betam'],index=[0])
 
     return (Bladedesigndb)
 

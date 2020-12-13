@@ -4,10 +4,10 @@ import math
 
 
 def Distributore2(H, g, Q, chord,De):
-    Dgv = 1.1 * De
+    Dgv = 1.2 * De
     Dgve = 4.28
     AltezzaDistributore = 0.5
-    Cr0 = Q/Dgv/math.pi/AltezzaDistributore
+    Cr0 = Q/(Dgv+2*chord)/math.pi/AltezzaDistributore
     Cr1 = Q/AltezzaDistributore/math.pi/Dgv
     data = {'Dgv': Dgv,
             'AltezzaDistributore': AltezzaDistributore,
