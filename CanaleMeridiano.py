@@ -16,7 +16,7 @@ def CanaleMeridiano(H, N, efficiency):
             'K': K,
             'De': De,
             'tau': tau,
-            'Di':Di ,
+            'Di': Di,
             'A': A,
             'chord': chord,
             'b': b}

@@ -14,21 +14,20 @@ def Girante(g, H, omega, Q, Di, De, rho):
     phi = Q / (omega * (2 * r) ** 3)                    # flow coefficient
 
 
-    # eq.Radiale
-
-    Cu2 = 0
-
-    Cu1 = We / U
+    Cu2 = 0                                             # condizione di axial leaving velocity
 
     # Free vortex: Cm costante
 
     Cm = phi[mid] * U[mid]                              # componente assiale velocità assoluta (midspan)
 
+    # eq.Radiale
+
+    Cu1 = We / U
 
     # Triangoli di velocità
 
     # gli angoli sono espressi in gradi rispetto alla direzione assiale
-    alpha1 = (np.arctan(Cu1 / Cm)) / (2 * 3.14) * 360
+    alpha1 = -(np.arctan(Cu1 / Cm)) / (2 * 3.14) * 360
     alpha2 = (np.arctan(Cu2 / Cm)) / (2 * 3.14) * 360
     beta1 = (np.arctan((U / Cm) - (Cu1 / Cm))) / (2 * 3.14) * 360
     beta2 = (np.arctan(U / Cm) / (2 * 3.14)) * 360
@@ -50,7 +49,6 @@ def Girante(g, H, omega, Q, Di, De, rho):
     WE = U*(Cu1 - Cu2)
 
     torque = rho * Q * Cu1 * r
-
 
 
     data = {'R%': rNorm,

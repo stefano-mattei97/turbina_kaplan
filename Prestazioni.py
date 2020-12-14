@@ -21,7 +21,6 @@ def Prestazioni (WE,Q,rho,omega, Wm, betam,chord, b, CL, CD ,De, Di, Hn, g):
     efficiency_real = np.mean(ef_real)
 
 
-
     data = {'L': L,
             'D': D,
             'Ft': Ft,

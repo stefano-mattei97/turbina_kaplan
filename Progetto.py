@@ -18,7 +18,7 @@ from BladeDesign2 import BladeDesign2
 
 
 #INPUT
-Q = 43.3                         #[m^3/s]
+Q = 48.11                         #[m^3/s]
 H = 15
 Np = 40                           #numero poli con moltiplicatore
 efficiency = 0.85                 #efficienza idraulica stimata
@@ -109,7 +109,7 @@ Drafttubedb= Drafttube(Inputdb['Q'],Inputdb['H'],OperatingPointdb['Ns'],CanaleMe
 Drafttubedb=Drafttubedb.iloc[0]
 
 #Blade Design
-Bladedesigndb = pd.DataFrame(data=None, columns=['CL','CD','AoA'])
+Bladedesigndb,chord = pd.DataFrame(data=None, columns=['CL','CD','AoA'])
 lsezioni = [0,2,5,8,10]
 str=['6424','6424','6410','6410','6410']
 str2=['polarNaca6424','polarNaca6424','polarNaca6410','polarNaca6410','polarNaca6410']
@@ -120,7 +120,7 @@ for jj in range(len(lsezioni)):
                         str[jj],str2[jj],jj)
     Bladedesigndb = pd.concat([Bladedesigndb, DFrame],axis=0)
 
-'''plt.plot(lsezioni,Bladedesigndb['CD'],label='CD')
+plt.plot(lsezioni,Bladedesigndb['CD'],label='CD')
 plt.title('Andamento Coefficiente di Drag')
 plt.xlabel('CD')
 plt.ylabel('R%')
@@ -130,10 +130,9 @@ plt.title('Andamento Coefficiente di Lift')
 plt.xlabel('CL')
 plt.ylabel('R%')
 plt.show()
-'''
 
 
 #PRESTAZIONI
 Prestazionidb = Prestazioni(WE,Q,rho,OperatingPointdb['Omega'],Bladedesigndb['Wm'],Bladedesigndb['betam'],
-                            Bladedesigndb['chord'],CanaleMeridianodb['b'],Bladedesigndb['CL'], Bladedesigndb['CD'],
+                            chord,CanaleMeridianodb['b'],Bladedesigndb['CL'], Bladedesigndb['CD'],
                             CanaleMeridianodb['De'],CanaleMeridianodb['Di'],CanaleMeridianodb['Hn'],Costantidb['g'])

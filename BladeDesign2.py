@@ -34,7 +34,7 @@ def BladeDesign2 (dato,g,H,efficiency,rho,Ns,lsezioni,Z,Di,str1,str2,plot):
         data2 = pd.read_csv('diagrammadiMoody.txt', delim_whitespace=True)
         fig = plt.figure()
         ax = plt.subplot(111)
-        plt.title('Diagramma di Moody')
+        plt.title('Diagramma di Moody Rotore',)
         ax.plot(data2['Ns'], data2['thoma'], color='k', ls='-')
         plt.plot(Ns, thoma, marker='o', color='red')
         ax.annotate('Zona Senza Cavitazione', (2,2),color='red')
@@ -42,6 +42,7 @@ def BladeDesign2 (dato,g,H,efficiency,rho,Ns,lsezioni,Z,Di,str1,str2,plot):
         ax.set_xlabel('Ns[rad]')
         ax.set_ylabel('thoma')
         plt.show()
+
     #step1 : calcolo coefficiente di lift per ogni raggio cl
 
     cl = (dato['W2']**2 - Wm**2 + (2 * g * (patm - Hs - pmin - etas * ((dato['C2']**2 - C3**2)/(2*g))))) / (K * Wm**2)
@@ -90,14 +91,14 @@ def BladeDesign2 (dato,g,H,efficiency,rho,Ns,lsezioni,Z,Di,str1,str2,plot):
              'cl':cl,
             'CD': CDd[kk],
             'AoA': AoA[kk],
-            'chord':chord,
             't':t,
             'Wm':Wm,
-            'betam':betam
+            'betam':betam,
+            'thoma':thoma
              }
-    Bladedesigndb = pd.DataFrame(data3, columns=['CL','cl', 'CD', 'AoA','chord','t','Wm','betam'],index=[0])
+    Bladedesigndb = pd.DataFrame(data3, columns=['CL','cl', 'CD', 'AoA','t','Wm','betam','thoma'],index=[0])
 
-    return (Bladedesigndb)
+    return (Bladedesigndb,chord)
 
 
 

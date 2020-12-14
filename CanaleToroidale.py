@@ -4,8 +4,8 @@ import pandas as pd
 
 
 def CanaleToroidale(Di, De,Dgv, Cu1):
-    A = 0.13 * De
-    B = 0.2 * De
+    A = 0.23 * De
+    B = 0.24 * De
     step = 11
 
     R = np.linspace(Di/2, De/2, step, endpoint=True)
