@@ -85,15 +85,15 @@ alpha1d = (np.arctan(Cut / Distributoredb['Cr1'])) / (2 * 3.14) * 360
 deflessione = alpha1d - alphamax
 for kk in range(len(sezioni)):
     TriangoliVelocitaDistributore2(Distributoredb['Cr1'], Cut, sezioni[kk], CanaleMeridianodb['chord'], alphamax,Distributoredb['Cr0'])
-
-#BLADE DESIGN
-#Bladedesigndb = pd.DataFrame(data=None, columns=['C3', 'Wm', 'Wmu','patm','Patm','Pv','pmin','K','etas',
-#                                                'betam','Hn','Nqe','thoma','Hs','Slipc','alpha','chordtopitch',
-#                                                'pitchtochord','CD','CL'])
-
-#dataf=pd.concat([dataf,data2],axis=0)
-
 '''
+#BLADE DESIGN
+Bladedesigndb = pd.DataFrame(data=None, columns=['C3', 'Wm', 'Wmu','patm','Patm','Pv','pmin','K','etas',
+                                                'betam','Hn','Nqe','thoma','Hs','Slipc','alpha','chordtopitch',
+                                                 'pitchtochord','CD','CL'])
+
+dataf=pd.concat([dataf,data2],axis=0)
+
+
 listafilecdcl = ['432_CL_CD.txt','432_CL_CD.txt','423_CL_CD.txt','423_CL_CD.txt','444_CL_CD.txt']
 listafilealpha = ['432_CL_alpha.txt','432_CL_alpha.txt','410_CL_alpha.txt','423_CL_alpha.txt','444_CL_alpha.txt']
 lsezioni = [0,2,5,7,10]
@@ -108,7 +108,7 @@ for ii in range(len(listafilecdcl)):
 Drafttubedb= Drafttube(Inputdb['Q'],Inputdb['H'],OperatingPointdb['Ns'],CanaleMeridianodb['De'],Costantidb['rho'],Costantidb['g'])
 Drafttubedb=Drafttubedb.iloc[0]
 
-#Blade Design
+#BLADE DESIGN
 Bladedesigndb= pd.DataFrame(data=None, columns=['CL','CD','AoA'])
 lsezioni = [0,2,5,8,10]
 chordr=np.zeros(len(lsezioni))
