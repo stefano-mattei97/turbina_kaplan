@@ -111,12 +111,12 @@ Drafttubedb=Drafttubedb.iloc[0]
 #BLADE DESIGN
 Bladedesigndb= pd.DataFrame(data=None, columns=['CL','CD','AoA'])
 lsezioni = [0,2,5,8,10]
-chordr=np.zeros(len(lsezioni))
+c=np.zeros(len(lsezioni))
 str=['6424','6424','6410','6410','6410']
 str2=['polarNaca6424','polarNaca6424','polarNaca6410','polarNaca6410','polarNaca6410']
 for jj in range(len(lsezioni)):
     sez=Database.iloc[lsezioni[jj]]
-    DFrame,chordr[jj]=BladeDesign2(sez,g,H,efficiency,rho,OperatingPointdb['Ns'],
+    DFrame,c[jj]=BladeDesign2(sez,g,H,efficiency,rho,OperatingPointdb['Ns'],
                         lsezioni,OperatingPointdb['Z'],CanaleMeridianodb['Di'],
                         str[jj],str2[jj],jj)
     Bladedesigndb = pd.concat([Bladedesigndb, DFrame],axis=0)
@@ -135,5 +135,5 @@ plt.show()
 
 #PRESTAZIONI
 Prestazionidb = Prestazioni(WE,Q,rho,OperatingPointdb['Omega'],Bladedesigndb['Wm'],Bladedesigndb['betam'],
-                            chordr,CanaleMeridianodb['b'],Bladedesigndb['CL'], Bladedesigndb['CD'],
+                            c,CanaleMeridianodb['b'],Bladedesigndb['CL'], Bladedesigndb['CD'],
                             CanaleMeridianodb['De'],CanaleMeridianodb['Di'],CanaleMeridianodb['Hn'],Costantidb['g'])
